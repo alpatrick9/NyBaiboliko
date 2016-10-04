@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">NyBaiboliko</string>
+    <string name="app_name">Ny Baiboliko</string>
     <string name="action_settings">Settings</string>
+    <string name="bible">Baiboly</string>
+    <string name="ffpm">Fihirana ffpm</string>
+    <string name="ff">Fihirana fanampiny</string>
+    <string name="drawer_open">Sokafana</string>
+    <string name="drawer_close">Akatona</string>
 </resources>
