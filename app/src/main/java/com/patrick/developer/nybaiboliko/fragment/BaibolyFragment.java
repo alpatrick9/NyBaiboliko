@@ -2,6 +2,7 @@ package com.patrick.developer.nybaiboliko.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.models.Test;
 
 import roboguice.fragment.provided.RoboFragment;
-import roboguice.inject.InjectView;
 
 /**
  * Created by developer on 10/4/16.
