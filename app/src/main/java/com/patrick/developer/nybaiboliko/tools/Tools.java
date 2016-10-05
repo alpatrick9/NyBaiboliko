@@ -13,7 +13,9 @@ public class Tools {
 
     protected int[] colorBible;
 
+    protected Context context;
     public Tools(Context context) {
+        this.context = context;
         this.colorBible = context.getResources().getIntArray(R.array.colorBible);
     }
 
@@ -39,5 +41,10 @@ public class Tools {
         else if(i>=44 && i<57) return 6;
         else if(i>=57 && i<65) return 7;
         else return 8;
+    }
+
+    public String formatTitleBook(String title) {
+        title = title.replace(" ", "");
+        return title.substring(0, 3).toUpperCase();
     }
 }

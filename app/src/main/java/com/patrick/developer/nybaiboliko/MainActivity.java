@@ -23,6 +23,7 @@ import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.models.Verset;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
+import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -161,7 +162,7 @@ public class MainActivity extends RoboActivity {
 
         final SqliteHelper sqliteHelper = OpenHelperManager.getHelper(this, SqliteHelper.class);
 
-        if (versetDao.findAll().size() == 0) {
+        if (versetDao.countRow() == 0) {
 
             final Handler handler = new Handler();
 
@@ -210,7 +211,7 @@ public class MainActivity extends RoboActivity {
                     array = new JSONArray(json);
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
-                        Verset verset = new Verset(object.getString("livre"), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"));
+                        Verset verset = new Verset(new Tools(MainActivity.this).formatTitleBook(object.getString("livre")), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"));
                         versetDao.create(verset);
                     }
                 }

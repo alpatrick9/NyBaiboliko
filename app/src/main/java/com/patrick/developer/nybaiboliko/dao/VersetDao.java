@@ -3,8 +3,10 @@ package com.patrick.developer.nybaiboliko.dao;
 import android.content.Context;
 
 import com.google.inject.Inject;
+import com.j256.ormlite.stmt.Where;
 import com.patrick.developer.nybaiboliko.configuration.DaoManager;
 import com.patrick.developer.nybaiboliko.models.Verset;
+import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,8 +20,9 @@ import java.util.Map;
  */
 
 public class VersetDao extends AbstractDao<Verset,Long> {
-
+    Context context;
     public VersetDao(Context context) {
+        this.context = context;
         try {
             this.dao = new DaoManager(context).getVersetDao();
         }catch (SQLException e) {
@@ -27,14 +30,15 @@ public class VersetDao extends AbstractDao<Verset,Long> {
         }
     }
 
-    public List<Verset> findBy(String book, Integer chapitre, Integer versetStart, Integer versetLast) {
+    public Integer countRow() throws SQLException {
+        return (int)dao.countOf();
+    }
+
+    public List<Verset> findBy(String book, Integer chapitre, Integer versetFirst, Integer versetLast) {
         List<Verset> versets = new ArrayList<>();
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("book",book);
-        map.put("chapitre_number",chapitre);
-        map.put("verset_number",versetStart);
         try {
-            versets = dao.queryForFieldValues(map);
+            versets = dao.queryBuilder().where().eq("book",new Tools(context).formatTitleBook(book)).and().eq("chapitre_number",chapitre)
+            .and().between("verset_number",versetFirst,versetLast).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

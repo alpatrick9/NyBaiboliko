@@ -105,18 +105,18 @@ public class BookManager {
 
     public String getAbreviationLivre(int index) {
         String nomLivre = jsonParse.getBook(context, index);
-        if (nomLivre.contains("-")) {
+        /*if (nomLivre.contains("-")) {
             nomLivre = nomLivre.substring(0, 1) + nomLivre.substring(2);
-        }
+        }*/
         nomLivre = nomLivre.replace(" ", "");
         return nomLivre.substring(0, 3).toUpperCase();
     }
 
     public void getTitleBook(int index) {
         String nomLivre = jsonParse.getBook(context, index);
-        if (nomLivre.contains("-")) {
+        /*if (nomLivre.contains("-")) {
             nomLivre = nomLivre.substring(0, 1) + nomLivre.substring(2);
-        }
+        }*/
         globalClass.setBookTitle(nomLivre);
     }
 
