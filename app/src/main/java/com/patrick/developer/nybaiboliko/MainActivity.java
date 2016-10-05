@@ -18,10 +18,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.misc.TransactionManager;
 import com.patrick.developer.nybaiboliko.adapter.SlideMenuAdapter;
+import com.patrick.developer.nybaiboliko.configuration.SqliteHelper;
+import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.BaibolyFragment;
+import com.patrick.developer.nybaiboliko.fragment.CheckVersetBibleFragment;
+import com.patrick.developer.nybaiboliko.models.Verset;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+
+import com.google.inject.Inject;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
@@ -34,14 +44,17 @@ public class MainActivity extends RoboActivity {
     protected Toolbar toolbar;
 
     @InjectView(R.id.menu_layout)
-    private DrawerLayout menuLayout;
+    protected DrawerLayout menuLayout;
 
     @InjectView(R.id.menu_elements)
-    private ListView menuElementsList;
+    protected ListView menuElementsList;
 
-    private ActionBarDrawerToggle menuToggle;
+    protected ActionBarDrawerToggle menuToggle;
     //element du Slider Menu
-    private ArrayList<String> menuListe = new ArrayList<String>();
+    protected ArrayList<String> menuListe = new ArrayList<String>();
+
+    @Inject
+    protected VersetDao versetDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,11 @@ public class MainActivity extends RoboActivity {
 
         getContentView();
 
+        try {
+            initializeData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +94,8 @@ public class MainActivity extends RoboActivity {
         /**
          * Creation de l'entete du slide menu
          */
-        View headerView = getLayoutInflater().inflate(
-                R.layout.entente_slide_menu, menuElementsList, false);
+        View headerView = getLayoutInflater().inflate(R.layout.entente_slide_menu, menuElementsList, false);
+
         menuElementsList.addHeaderView(headerView,null,false);
 
         SlideMenuAdapter adapterMenu = new SlideMenuAdapter(menuListe, this);
@@ -141,7 +159,7 @@ public class MainActivity extends RoboActivity {
     }
 
     protected void getContentView() {
-        Fragment fragment = new BaibolyFragment();
+        Fragment fragment = new CheckVersetBibleFragment();
         replaceFragment(fragment);
     }
 
@@ -152,6 +170,17 @@ public class MainActivity extends RoboActivity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.contenaire, fragment).commit();
+        }
+    }
+
+    public void initializeData() throws SQLException{
+        SqliteHelper sqliteHelper = OpenHelperManager.getHelper(this, SqliteHelper.class);
+        if(versetDao.findAll().size() == 0) {
+            TransactionManager.callInTransaction(sqliteHelper.getConnectionSource(), new Callable<Void>() {
+                public Void call() throws Exception {
+                    return null;
+                }
+            });
         }
     }
 

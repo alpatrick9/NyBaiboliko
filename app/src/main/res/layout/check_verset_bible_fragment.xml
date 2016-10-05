@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabHost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TabWidget>
+        <!-- container of tabs -->
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <!-- tab N°1 -->
+            <!-- Inclusion of the interface -->
+            <include
+                android:id="@+id/livres"
+                layout="@layout/tab_livres"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"></include>
+            <!-- tab N°2 -->
+            <!-- Inclusion of the interface -->
+            <include
+                android:id="@+id/chapitres"
+                layout="@layout/tab_chapitres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"></include>
+            <!-- tab N°3 -->
+            <!-- Inclusion of the interface -->
+            <include
+                android:id="@+id/versets"
+                layout="@layout/tab_verset"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"></include>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
