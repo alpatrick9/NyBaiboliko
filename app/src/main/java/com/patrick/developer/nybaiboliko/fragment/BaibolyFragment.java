@@ -12,7 +12,9 @@ import com.google.inject.Inject;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.models.Test;
 
+import roboguice.RoboGuice;
 import roboguice.fragment.provided.RoboFragment;
+import roboguice.inject.InjectView;
 
 /**
  * Created by developer on 10/4/16.
