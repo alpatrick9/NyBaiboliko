@@ -14,15 +14,12 @@ import java.sql.SQLException;
  */
 
 public class DaoManager {
-    Context context;
 
     SqliteHelper sqliteHelper;
 
     Dao<Verset, Long> versetDao;
 
-    @Inject
     public DaoManager(Context context) {
-        this.context = context;
         sqliteHelper = OpenHelperManager.getHelper(context, SqliteHelper.class);
     }
 

@@ -22,32 +22,27 @@ import roboguice.fragment.provided.RoboFragment;
  * Created by developer on 10/4/16.
  */
 
-public class BaibolyFragment extends RoboFragment {
+public class BibleFragment extends RoboFragment {
 
     protected  View rootView;
 
     protected ListView versetsListView;
 
-    @Inject
     protected VersetDao versetDao;
 
     protected List<Verset> versets = new ArrayList<>();
 
-    public BaibolyFragment() {
+    public BibleFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.baiboly_fragment, container, false);
+        versetDao = new VersetDao(getActivity());
         setView();
-        try {
-            versets = versetDao.findAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
-        versetsListView.setAdapter(adapter);
+        /*VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
+        versetsListView.setAdapter(adapter);*/
         return rootView;
     }
 

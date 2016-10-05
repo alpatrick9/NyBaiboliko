@@ -13,7 +13,7 @@ public class Verset {
     @DatabaseField(generatedId = true)
     protected Long id;
 
-    @DatabaseField(columnName = "book")
+    @DatabaseField(columnName = "bookIndex")
     protected String book;
 
     @DatabaseField(columnName = "chapitre_number")
