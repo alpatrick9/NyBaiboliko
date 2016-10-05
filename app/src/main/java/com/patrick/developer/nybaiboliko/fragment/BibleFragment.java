@@ -11,6 +11,7 @@ import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.VersetsAdapter;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.models.Verset;
+import com.patrick.developer.nybaiboliko.tools.GlobalClass;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class BibleFragment extends RoboFragment {
 
     protected List<Verset> versets = new ArrayList<>();
 
+    protected GlobalClass globalClass;
     public BibleFragment() {
     }
 
@@ -39,10 +41,12 @@ public class BibleFragment extends RoboFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.baiboly_fragment, container, false);
+        globalClass = (GlobalClass) getActivity().getApplicationContext();
         versetDao = new VersetDao(getActivity());
         setView();
-        /*VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
-        versetsListView.setAdapter(adapter);*/
+        versets = versetDao.findBy(globalClass.getBookTitle(),globalClass.getChapitre(),globalClass.getversetFirst(),globalClass.getversetLast());
+        VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
+        versetsListView.setAdapter(adapter);
         return rootView;
     }
 
