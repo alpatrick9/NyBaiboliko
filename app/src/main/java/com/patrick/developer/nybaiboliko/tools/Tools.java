@@ -59,4 +59,8 @@ public class Tools {
         int largeur = metrics.widthPixels;
         return (int)Math.ceil(largeur/(float)7)-5;
     }
+
+    public int[] getColorBible() {
+        return colorBible;
+    }
 }

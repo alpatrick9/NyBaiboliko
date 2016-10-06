@@ -1,6 +1,9 @@
 package com.patrick.developer.nybaiboliko.tools;
 
 import android.app.Application;
+import android.support.annotation.ColorInt;
+
+import com.patrick.developer.nybaiboliko.R;
 
 /**
  * Created by developer on 10/5/16.
@@ -14,6 +17,8 @@ public class GlobalClass extends Application {
     protected static Integer versetLast;
 
     public static Integer squareWidthMax = 200;
+
+    public int colorRef =  0;
 
     public static Integer getBookIndex() {
         return bookIndex;

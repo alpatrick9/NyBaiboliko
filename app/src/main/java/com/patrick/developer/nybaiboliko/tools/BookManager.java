@@ -57,6 +57,7 @@ public class BookManager {
         toolbar = (Toolbar) ((Activity)context).findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
         toolbar.setTitle(context.getResources().getString(R.string.bible_section));
+        toolbar.setTitleTextColor(context.getResources().getColor(R.color.white));
 
         menuElementsList = (ListView) ((Activity)context).findViewById(R.id.menu_elements);
         menuElementsList.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
@@ -157,6 +158,9 @@ public class BookManager {
 
                     toolbar.setTitle(globalClass.getBookTitle());
                     toolbar.setBackgroundColor(tools.colorBible[refColor]);
+
+                    globalClass.colorRef = refColor;
+
                     menuElementsList.setBackgroundColor(tools.colorBible[refColor]);
                     tabHost.setCurrentTab(1);
                 }
