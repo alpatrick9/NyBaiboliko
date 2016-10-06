@@ -47,9 +47,11 @@ public class ChapitreManager {
 
     Toolbar toolbar;
 
-    int widthButton = 100;
-    int heightButton = 100;
-    int textButtonSize =10;
+    int widthButton = 0;
+    int heightButton = 0;
+    int textButtonSize =0;
+
+    int windowProportion = 0;
 
     public ChapitreManager(Context context, View rootView, TabHost tabHost, Integer numberOfChap, Integer refColorBible) {
         this.rootView = rootView;
@@ -65,6 +67,17 @@ public class ChapitreManager {
         globalClass = (GlobalClass) context.getApplicationContext();
         toolbar = (Toolbar) ((Activity)context).findViewById(R.id.toolbar);
 
+        widthButton = globalClass.squareWidthMax;
+        heightButton = globalClass.squareWidthMax;
+
+        this.windowProportion = tools.getSizeForSquare();
+
+        if(globalClass.squareWidthMax > windowProportion) {
+            widthButton = windowProportion;
+            heightButton = windowProportion;
+        }
+
+        textButtonSize = (int)Math.ceil(widthButton*0.1);
     }
 
     public void creationBoutonChap(){

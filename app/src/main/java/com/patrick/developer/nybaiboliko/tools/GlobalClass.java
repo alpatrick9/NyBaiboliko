@@ -13,6 +13,8 @@ public class GlobalClass extends Application {
     protected static Integer versetFirst;
     protected static Integer versetLast;
 
+    public static Integer squareWidthMax = 200;
+
     public static Integer getBookIndex() {
         return bookIndex;
     }

@@ -1,6 +1,9 @@
 package com.patrick.developer.nybaiboliko.tools;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.patrick.developer.nybaiboliko.R;
@@ -46,5 +49,14 @@ public class Tools {
     public String formatTitleBook(String title) {
         title = title.replace(" ", "");
         return title.substring(0, 3).toUpperCase();
+    }
+
+    public Integer getSizeForSquare(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = ((Activity)context).getWindowManager();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        int hauteur = metrics.heightPixels;
+        int largeur = metrics.widthPixels;
+        return (int)Math.ceil(largeur/(float)7)-5;
     }
 }

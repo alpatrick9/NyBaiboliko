@@ -36,9 +36,12 @@ public class BookManager {
     Toolbar toolbar;
 
     ArrayList<Button> buttonLivres = null;
-    int widthButton = 100;
-    int heightButton = 100;
-    int textButtonSize = 10;
+
+    int widthButton = 0;
+    int heightButton = 0;
+    int textButtonSize = 0;
+
+    int windowProportion = 0;
 
     public BookManager(Context context, View rootView, TabHost tabHost) {
         this.rootView = rootView;
@@ -48,6 +51,18 @@ public class BookManager {
         this.jsonParse = new JsonParser();
         globalClass = (GlobalClass) context.getApplicationContext();
         toolbar = (Toolbar) ((Activity)context).findViewById(R.id.toolbar);
+
+        widthButton = globalClass.squareWidthMax;
+        heightButton = globalClass.squareWidthMax;
+
+        this.windowProportion = tools.getSizeForSquare();
+
+        if(globalClass.squareWidthMax > windowProportion) {
+            widthButton = windowProportion;
+            heightButton = windowProportion;
+        }
+
+        textButtonSize = (int)Math.ceil(widthButton*0.1);
     }
 
     public void creationBoutonLivre() {
