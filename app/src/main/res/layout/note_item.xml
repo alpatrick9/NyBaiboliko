@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/title_book"
+        style="@style/note"
         android:textAlignment="center"
         android:id="@+id/note"
         android:layout_below="@+id/first_separation"

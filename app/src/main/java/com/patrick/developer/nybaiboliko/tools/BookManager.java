@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -37,6 +38,8 @@ public class BookManager {
 
     ArrayList<Button> buttonLivres = null;
 
+    protected ListView menuElementsList;
+
     int widthButton = 0;
     int heightButton = 0;
     int textButtonSize = 0;
@@ -50,7 +53,13 @@ public class BookManager {
         this.tabHost = tabHost;
         this.jsonParse = new JsonParser();
         globalClass = (GlobalClass) context.getApplicationContext();
+
         toolbar = (Toolbar) ((Activity)context).findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        toolbar.setTitle(context.getResources().getString(R.string.bible_section));
+
+        menuElementsList = (ListView) ((Activity)context).findViewById(R.id.menu_elements);
+        menuElementsList.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
 
         widthButton = globalClass.squareWidthMax;
         heightButton = globalClass.squareWidthMax;
@@ -120,18 +129,12 @@ public class BookManager {
 
     public String getAbreviationLivre(int index) {
         String nomLivre = jsonParse.getBook(context, index);
-        /*if (nomLivre.contains("-")) {
-            nomLivre = nomLivre.substring(0, 1) + nomLivre.substring(2);
-        }*/
         nomLivre = nomLivre.replace(" ", "");
         return nomLivre.substring(0, 3).toUpperCase();
     }
 
     public void getTitleBook(int index) {
         String nomLivre = jsonParse.getBook(context, index);
-        /*if (nomLivre.contains("-")) {
-            nomLivre = nomLivre.substring(0, 1) + nomLivre.substring(2);
-        }*/
         globalClass.setBookTitle(nomLivre);
     }
 
@@ -142,12 +145,19 @@ public class BookManager {
             Integer index = (Integer) v.getTag();
             for (Button b : buttonLivres) {
                 if (b.getTag() == index) {
+
                     Integer nbChap = jsonParse.getNumberChapOf(context, index);
                     Integer refColor = tools.recupColorBible(index);
+
                     globalClass.setBookIndex(index);
+
                     getTitleBook(index);
+
                     new ChapitreManager(context, rootView, tabHost, nbChap, refColor).creationBoutonChap();
+
                     toolbar.setTitle(globalClass.getBookTitle());
+                    toolbar.setBackgroundColor(tools.colorBible[refColor]);
+                    menuElementsList.setBackgroundColor(tools.colorBible[refColor]);
                     tabHost.setCurrentTab(1);
                 }
             }

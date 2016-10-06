@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ import com.patrick.developer.nybaiboliko.configuration.SqliteHelper;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.models.Verset;
+import com.patrick.developer.nybaiboliko.tools.DialogBox;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
@@ -58,6 +60,8 @@ public class MainActivity extends Activity {
 
         setView();
 
+        setToolbar();
+
         versetDao = new VersetDao(this);
 
         creationSlideMenu();
@@ -77,6 +81,9 @@ public class MainActivity extends Activity {
         menuLayout = (DrawerLayout)findViewById(R.id.menu_layout);
 
         menuElementsList = (ListView)findViewById(R.id.menu_elements);
+    }
+
+    protected void setToolbar() {
     }
 
     /**
@@ -225,12 +232,12 @@ public class MainActivity extends Activity {
         });
     }
 
-    /*@Override
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            new BoiteDeDialogue(this).boiteDialogeQuitte();
+            new DialogBox(this).leave();
         }
         return super.onKeyDown(keyCode, event);
-    }*/
+    }
 
 }

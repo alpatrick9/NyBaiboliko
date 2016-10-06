@@ -6,14 +6,14 @@
     <color name="white">#FFF</color>
 
     <array name="colorBible">
-        <item >#ED7F10</item>
-        <item >#F7230C</item>
-        <item>#A5260A</item>
-        <item>#6B0D0D</item>
+        <item >#f51e30</item>
+        <item >#07836c</item>
+        <item>#5aa50a</item>
+        <item>#17a1ab</item>
         <item>#26C4EC</item>
         <item>#3A8EBA</item>
         <item>#5472AE</item>
-        <item>#24445C</item>
-        <item>#000000</item>
+        <item>#6d92ae</item>
+        <item>#3a8b8c</item>
     </array>
 </resources>

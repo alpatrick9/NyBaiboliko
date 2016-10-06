@@ -7,4 +7,6 @@
     <string name="drawer_open">Sokafana</string>
     <string name="drawer_close">Akatona</string>
     <string name="message">Vita ny fampidirana ny Baiboly</string>
+    <string name="message_quitte">Akatona ve?</string>
+    <string name="bible_section">Baiboly</string>
 </resources>

@@ -55,7 +55,7 @@ public class VersetsAdapter extends BaseAdapter {
         }
 
         TextView itemViewNumber = (TextView)view.findViewById(R.id.versets_item_number);
-        itemViewNumber.setText(versets.get(i).getVersetNumber().toString());
+        itemViewNumber.setText(versets.get(i).getVersetNumber().toString()+".");
 
         TextView itemViewText = (TextView)view.findViewById(R.id.versets_item_text);
         itemViewText.setText(versets.get(i).getVersetText());
