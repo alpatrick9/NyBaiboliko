@@ -2,7 +2,6 @@ package com.patrick.developer.nybaiboliko.configuration;
 
 import android.content.Context;
 
-import com.google.inject.Inject;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.patrick.developer.nybaiboliko.models.Verset;

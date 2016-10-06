@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;

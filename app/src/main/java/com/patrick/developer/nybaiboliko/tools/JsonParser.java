@@ -2,16 +2,11 @@ package com.patrick.developer.nybaiboliko.tools;
 
 import android.content.Context;
 
-import com.patrick.developer.nybaiboliko.models.Verset;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by developer on 10/5/16.
@@ -48,27 +43,6 @@ public class JsonParser {
         }
         return jsonFile;
 
-    }
-
-    public List<Verset> getBible(Context context) {
-        List <Verset> versets = new ArrayList<>();
-        String json = "";
-        JSONArray array = null;
-        try {
-            json = getJsonFile(context, "baiboly");
-            if(json != null) {
-                array = new JSONArray(json);
-                for(int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
-                    Verset verset = new Verset(object.getString("livre"),object.getInt("chapitre"), object.getInt("verset"), object.getString("text"));
-                }
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-        return versets;
     }
 
     public String getBook(Context appContext, int id){

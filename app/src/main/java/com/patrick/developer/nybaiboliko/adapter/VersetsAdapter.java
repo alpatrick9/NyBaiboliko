@@ -1,10 +1,12 @@
 package com.patrick.developer.nybaiboliko.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
@@ -21,6 +23,8 @@ public class VersetsAdapter extends BaseAdapter {
     Context context;
 
     List<Verset> versets;
+
+    RelativeLayout layout = null;
 
     public VersetsAdapter(Context context, List<Verset> versets) {
         this.context = context;
@@ -55,6 +59,17 @@ public class VersetsAdapter extends BaseAdapter {
 
         TextView itemViewText = (TextView)view.findViewById(R.id.versets_item_text);
         itemViewText.setText(versets.get(i).getVersetText());
+        layout = (RelativeLayout) view.findViewById(R.id.note_contenaire);
+
+        if(!versets.get(i).getNote().isEmpty()) {
+            RelativeLayout noteItem = (RelativeLayout) ((Activity)context).getLayoutInflater().inflate(R.layout.note_item,null);
+            TextView noteView = (TextView)noteItem.findViewById(R.id.note);
+            noteView.setText(versets.get(i).getNote());
+            layout.addView(noteItem);
+        }
+        else {
+                layout.removeAllViews();
+        }
 
         return view;
     }

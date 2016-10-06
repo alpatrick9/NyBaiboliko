@@ -1,30 +1,20 @@
 package com.patrick.developer.nybaiboliko.fragment;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TabHost;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
-import com.google.inject.Inject;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.tools.BookManager;
-import com.patrick.developer.nybaiboliko.tools.JsonParser;
-
-import java.util.ArrayList;
-
-import roboguice.fragment.provided.RoboFragment;
 
 /**
  * Created by developer on 10/5/16.
  */
 
-public class CheckVersetBibleFragment extends RoboFragment {
+public class CheckVersetBibleFragment extends Fragment {
 
     protected View rootView;
 

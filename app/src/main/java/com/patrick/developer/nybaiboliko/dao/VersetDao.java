@@ -2,17 +2,13 @@ package com.patrick.developer.nybaiboliko.dao;
 
 import android.content.Context;
 
-import com.google.inject.Inject;
-import com.j256.ormlite.stmt.Where;
 import com.patrick.developer.nybaiboliko.configuration.DaoManager;
 import com.patrick.developer.nybaiboliko.models.Verset;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -20,7 +16,9 @@ import java.util.Map;
  */
 
 public class VersetDao extends AbstractDao<Verset,Long> {
+
     Context context;
+
     public VersetDao(Context context) {
         this.context = context;
         try {

@@ -1,13 +1,13 @@
 package com.patrick.developer.nybaiboliko;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,22 +34,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
-
-@ContentView(R.layout.activity_main)
-public class MainActivity extends RoboActivity {
+public class MainActivity extends Activity {
 
     protected VersetDao versetDao;
 
-    @InjectView(R.id.toolbar)
     protected Toolbar toolbar;
 
-    @InjectView(R.id.menu_layout)
     protected DrawerLayout menuLayout;
 
-    @InjectView(R.id.menu_elements)
     protected ListView menuElementsList;
 
     protected ActionBarDrawerToggle menuToggle;
@@ -62,6 +54,10 @@ public class MainActivity extends RoboActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_main);
+
+        setView();
+
         versetDao = new VersetDao(this);
 
         creationSlideMenu();
@@ -73,6 +69,14 @@ public class MainActivity extends RoboActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    protected void setView() {
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+
+        menuLayout = (DrawerLayout)findViewById(R.id.menu_layout);
+
+        menuElementsList = (ListView)findViewById(R.id.menu_elements);
     }
 
     /**
@@ -127,6 +131,9 @@ public class MainActivity extends RoboActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                menuLayout.closeDrawer(menuElementsList);
+
                 switch (position) {
                     case 1:
                         replaceFragment(new CheckVersetBibleFragment());
@@ -136,8 +143,6 @@ public class MainActivity extends RoboActivity {
                     case 3:
                         break;
                 }
-
-                menuLayout.closeDrawer(menuElementsList);
             }
         });
 
@@ -211,7 +216,7 @@ public class MainActivity extends RoboActivity {
                     array = new JSONArray(json);
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
-                        Verset verset = new Verset(new Tools(MainActivity.this).formatTitleBook(object.getString("livre")), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"));
+                        Verset verset = new Verset(new Tools(MainActivity.this).formatTitleBook(object.getString("livre")), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"), object.getString("note"));
                         versetDao.create(verset);
                     }
                 }

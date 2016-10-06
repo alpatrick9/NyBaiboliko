@@ -25,14 +25,18 @@ public class Verset {
     @DatabaseField(columnName = "verset_text")
     protected String versetText;
 
+    @DatabaseField(columnName = "note")
+    protected String note;
+
     public Verset() {
     }
 
-    public Verset(String book, Integer chapitreNumber, Integer versetNumber, String versetText) {
+    public Verset(String book, Integer chapitreNumber, Integer versetNumber, String versetText, String note) {
         this.book = book;
         this.chapitreNumber = chapitreNumber;
         this.versetNumber = versetNumber;
         this.versetText = versetText;
+        this.note = note;
     }
 
     public Long getId() {
@@ -73,5 +77,13 @@ public class Verset {
 
     public void setVersetText(String versetText) {
         this.versetText = versetText;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
