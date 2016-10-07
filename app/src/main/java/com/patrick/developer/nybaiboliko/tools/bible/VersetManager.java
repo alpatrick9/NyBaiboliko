@@ -1,4 +1,4 @@
-package com.patrick.developer.nybaiboliko.tools;
+package com.patrick.developer.nybaiboliko.tools.bible;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -18,7 +18,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.fragment.BibleFragment;
+import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
+import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.tools.JsonParser;
+import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.util.ArrayList;
 
@@ -131,7 +134,7 @@ public class VersetManager {
                     buttonVersets.add(b);
                     b.setTag(numerosVerse - 1);
                     b.setTextColor(context.getResources().getColor(R.color.white));
-                    b.setBackgroundColor(tools.colorBible[refColorBible]);
+                    b.setBackgroundColor(tools.getColorBible()[refColorBible]);
                     b.setOnClickListener(listenerVerset);
                     numerosVerse++;
                 }

@@ -9,4 +9,6 @@
     <string name="message">Vita ny fampidirana ny Baiboly</string>
     <string name="message_quitte">Akatona ve?</string>
     <string name="bible_section">Baiboly</string>
+    <string name="ffpm_section">Fihirana FFPM</string>
+    <string name="ff_section">Fihirana fanampiny</string>
 </resources>

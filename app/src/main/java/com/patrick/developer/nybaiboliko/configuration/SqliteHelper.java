@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.patrick.developer.nybaiboliko.models.Fihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 
 import java.sql.SQLException;
@@ -30,6 +31,7 @@ public class SqliteHelper extends OrmLiteSqliteOpenHelper {
              * creates the Verset database table
              */
             TableUtils.createTable(connectionSource, Verset.class);
+            TableUtils.createTable(connectionSource, Fihirana.class);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,6 +45,7 @@ public class SqliteHelper extends OrmLiteSqliteOpenHelper {
              * Recreates the database when onUpgrade is called by the framework
              */
             TableUtils.dropTable(connectionSource, Verset.class, false);
+            TableUtils.dropTable(connectionSource, Fihirana.class, false);
             onCreate(database, connectionSource);
 
         } catch (SQLException e) {

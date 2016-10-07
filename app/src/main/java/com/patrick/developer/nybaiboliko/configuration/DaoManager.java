@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.patrick.developer.nybaiboliko.models.Fihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 
 import java.sql.SQLException;
@@ -18,6 +19,8 @@ public class DaoManager {
 
     Dao<Verset, Long> versetDao;
 
+    Dao<Fihirana, String> fihiranaDao;
+
     public DaoManager(Context context) {
         sqliteHelper = OpenHelperManager.getHelper(context, SqliteHelper.class);
     }
@@ -26,5 +29,11 @@ public class DaoManager {
         if(versetDao == null)
             versetDao = sqliteHelper.getDao(Verset.class);
         return versetDao;
+    }
+
+    public Dao<Fihirana, String> getFihiranaDao() throws SQLException {
+        if(fihiranaDao == null)
+            fihiranaDao = sqliteHelper.getDao(Fihirana.class);
+        return fihiranaDao;
     }
 }

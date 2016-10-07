@@ -11,17 +11,21 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.misc.TransactionManager;
 import com.patrick.developer.nybaiboliko.adapter.SlideMenuAdapter;
 import com.patrick.developer.nybaiboliko.configuration.SqliteHelper;
+import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
-import com.patrick.developer.nybaiboliko.fragment.CheckVersetBibleFragment;
+import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
+import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
+import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
+import com.patrick.developer.nybaiboliko.models.Fihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 import com.patrick.developer.nybaiboliko.tools.DialogBox;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
@@ -40,6 +44,8 @@ public class MainActivity extends Activity {
 
     protected VersetDao versetDao;
 
+    protected FihiranaDao fihiranaDao;
+
     protected Toolbar toolbar;
 
     protected DrawerLayout menuLayout;
@@ -52,17 +58,24 @@ public class MainActivity extends Activity {
 
     ProgressDialog myProgressDialog = null;
 
+    private InputMethodManager gestionClavier = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
+        gestionClavier = (InputMethodManager)getSystemService(
+                INPUT_METHOD_SERVICE);
+
         setView();
 
         setToolbar();
 
         versetDao = new VersetDao(this);
+
+        fihiranaDao = new FihiranaDao(this);
 
         creationSlideMenu();
 
@@ -127,6 +140,8 @@ public class MainActivity extends Activity {
              */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                //Fermer clavier virtuel
+                gestionClavier.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
                 invalidateOptionsMenu();
             }
         };
@@ -146,8 +161,22 @@ public class MainActivity extends Activity {
                         replaceFragment(new CheckVersetBibleFragment());
                         break;
                     case 2:
+                        CheckFihiranaFragment fragmentFfmp = new CheckFihiranaFragment();
+
+                        Bundle bundleFfpm = new Bundle();
+                        bundleFfpm.putString("type","ffpm");
+
+                        fragmentFfmp.setArguments(bundleFfpm);
+                        replaceFragment(fragmentFfmp);
                         break;
                     case 3:
+                        CheckFihiranaFragment fragmentFf = new CheckFihiranaFragment();
+
+                        Bundle bundleFf = new Bundle();
+                        bundleFf.putString("type","ff");
+
+                        fragmentFf.setArguments(bundleFf);
+                        replaceFragment(fragmentFf);
                         break;
                 }
             }
@@ -174,11 +203,10 @@ public class MainActivity extends Activity {
 
         final SqliteHelper sqliteHelper = OpenHelperManager.getHelper(this, SqliteHelper.class);
 
-        if (versetDao.countRow() == 0) {
 
             final Handler handler = new Handler();
 
-            final Runnable msg = new Runnable() {
+            /*final Runnable msg = new Runnable() {
                 @Override
                 public void run() {
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -188,7 +216,7 @@ public class MainActivity extends Activity {
                         }
                     });
                 }
-            };
+            };*/
 
             Thread thread = new Thread() {
                 @Override
@@ -204,29 +232,46 @@ public class MainActivity extends Activity {
                     }
                     myProgressDialog.dismiss();
                     /**********************************/
-                    handler.post(msg);
+                    //handler.post(msg);
                 }
             };
 
             myProgressDialog = ProgressDialog.show(MainActivity.this,"", "Miandrasa kely azafady ...", true);
             thread.start();
-        }
     }
 
     public void insertDataBase(SqliteHelper sqliteHelper) throws SQLException, IOException, JSONException{
         TransactionManager.callInTransaction(sqliteHelper.getConnectionSource(), new Callable<Void>() {
             public Void call() throws Exception {
-                String json = "";
-                JSONArray array = null;
-                json = new JsonParser().getJsonFile(MainActivity.this, "baiboly");
-                if (json != null) {
-                    array = new JSONArray(json);
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
-                        Verset verset = new Verset(new Tools(MainActivity.this).formatTitleBook(object.getString("livre")), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"), object.getString("note"));
-                        versetDao.create(verset);
+
+                if (versetDao.countRow() == 0) {
+                    String json = "";
+                    JSONArray array = null;
+                    json = new JsonParser().getJsonFile(MainActivity.this, "baiboly");
+                    if (json != null) {
+                        array = new JSONArray(json);
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.getJSONObject(i);
+                            Verset verset = new Verset(new Tools(MainActivity.this).formatTitleBook(object.getString("livre")), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"), object.getString("note"));
+                            versetDao.create(verset);
+                        }
                     }
                 }
+
+                if(fihiranaDao.countRow() == 0) {
+                    String json = "";
+                    JSONArray array = null;
+                    json = new JsonParser().getJsonFile(MainActivity.this, "fihirana");
+                    if (json != null) {
+                        array = new JSONArray(json);
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.getJSONObject(i);
+                            Fihirana fihirana = new Fihirana(object.getString("id"),object.getString("title"),object.getString("description"));
+                            fihiranaDao.create(fihirana);
+                        }
+                    }
+                }
+
                 return null;
             }
         });

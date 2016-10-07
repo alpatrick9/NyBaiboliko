@@ -1,4 +1,4 @@
-package com.patrick.developer.nybaiboliko.tools;
+package com.patrick.developer.nybaiboliko.tools.bible;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.patrick.developer.nybaiboliko.R;
+import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.tools.JsonParser;
+import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.util.ArrayList;
 
@@ -118,7 +121,7 @@ public class ChapitreManager {
                 b.setOnClickListener(listenerChapitre);
                 buttonChapitres.add(b);
                 b.setTextColor(context.getResources().getColor(R.color.white));
-                b.setBackgroundColor(tools.colorBible[refColorBible]);
+                b.setBackgroundColor(tools.getColorBible()[refColorBible]);
                 numerosChapitre++;
             }
             tabChap.addView(r);

@@ -1,4 +1,4 @@
-package com.patrick.developer.nybaiboliko.tools;
+package com.patrick.developer.nybaiboliko.tools.bible;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.patrick.developer.nybaiboliko.R;
+import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.tools.JsonParser;
+import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.util.ArrayList;
 
@@ -157,11 +160,11 @@ public class BookManager {
                     new ChapitreManager(context, rootView, tabHost, nbChap, refColor).creationBoutonChap();
 
                     toolbar.setTitle(globalClass.getBookTitle());
-                    toolbar.setBackgroundColor(tools.colorBible[refColor]);
+                    toolbar.setBackgroundColor(tools.getColorBible()[refColor]);
 
                     globalClass.colorRef = refColor;
 
-                    menuElementsList.setBackgroundColor(tools.colorBible[refColor]);
+                    menuElementsList.setBackgroundColor(tools.getColorBible()[refColor]);
                     tabHost.setCurrentTab(1);
                 }
             }

@@ -1,4 +1,4 @@
-package com.patrick.developer.nybaiboliko.fragment;
+package com.patrick.developer.nybaiboliko.fragment.bible;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -31,6 +31,7 @@ public class BibleFragment extends Fragment {
     protected List<Verset> versets = new ArrayList<>();
 
     protected GlobalClass globalClass;
+
     public BibleFragment() {
     }
 
@@ -38,12 +39,18 @@ public class BibleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.baiboly_fragment, container, false);
+
         globalClass = (GlobalClass) getActivity().getApplicationContext();
+
         versetDao = new VersetDao(getActivity());
+
         setView();
+
         versets = versetDao.findBy(globalClass.getBookTitle(),globalClass.getChapitre(),globalClass.getversetFirst(),globalClass.getversetLast());
+
         VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
         versetsListView.setAdapter(adapter);
+
         return rootView;
     }
 

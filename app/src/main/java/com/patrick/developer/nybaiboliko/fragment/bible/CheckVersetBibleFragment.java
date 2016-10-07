@@ -1,4 +1,4 @@
-package com.patrick.developer.nybaiboliko.fragment;
+package com.patrick.developer.nybaiboliko.fragment.bible;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.tools.BookManager;
+import com.patrick.developer.nybaiboliko.tools.bible.BookManager;
 
 /**
  * Created by developer on 10/5/16.
