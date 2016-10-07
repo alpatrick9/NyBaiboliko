@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabHost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:gravity="center">
+            <EditText
+                android:layout_width="500px"
+                android:layout_height="wrap_content"
+                android:id="@+id/key_word"
+                />
+            <ImageButton
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:id="@+id/find"
+                android:src="@mipmap/ic_find"
+                android:background="@android:color/transparent"
+                android:layout_toRightOf="@+id/key_word"/>
+        </RelativeLayout>
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TabWidget>
+        <!-- container of tabs -->
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <!-- tab N°1 -->
+            <!-- Inclusion of the interface -->
+            <include
+                android:id="@+id/result_bible"
+                layout="@layout/tab_result_bible"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"></include>
+            <!-- tab N°2 -->
+            <!-- Inclusion of the interface -->
+            <include
+                android:id="@+id/result_son"
+                layout="@layout/tab_result_song"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"></include>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>

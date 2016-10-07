@@ -25,6 +25,7 @@ import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
 import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
+import com.patrick.developer.nybaiboliko.fragment.find.FindFragment;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 import com.patrick.developer.nybaiboliko.tools.DialogBox;
@@ -110,6 +111,7 @@ public class MainActivity extends Activity {
         menuListe.add(this.getResources().getString(R.string.bible));
         menuListe.add(this.getResources().getString(R.string.ffpm));
         menuListe.add(this.getResources().getString(R.string.ff));
+        menuListe.add(this.getResources().getString(R.string.find));
 
         /**
          * Creation de l'entete du slide menu
@@ -175,6 +177,9 @@ public class MainActivity extends Activity {
                         bundleFf.putString("type","ff");
 
                         fragment.setArguments(bundleFf);
+                        break;
+                    case 4:
+                        fragment = new FindFragment();
                         break;
                 }
                 replaceFragment(fragment);

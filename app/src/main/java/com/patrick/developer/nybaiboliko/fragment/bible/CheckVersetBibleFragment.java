@@ -18,7 +18,7 @@ public class CheckVersetBibleFragment extends Fragment {
 
     protected View rootView;
 
-    TabHost tabHost =null;
+    TabHost tabHost = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
