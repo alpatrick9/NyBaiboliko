@@ -75,6 +75,12 @@ public class CheckFihiranaFragment extends Fragment {
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                gestionClavier = (InputMethodManager)getActivity().getSystemService(
+                        getActivity().INPUT_METHOD_SERVICE);
+                //Fermer clavier virtuel
+                gestionClavier.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),0);
+
                 Fragment fragment = new FihiranaFfpmFragment();
 
                 Bundle bundle = new Bundle();

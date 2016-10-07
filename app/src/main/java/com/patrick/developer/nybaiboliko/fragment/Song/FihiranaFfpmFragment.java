@@ -37,8 +37,6 @@ public class FihiranaFfpmFragment extends Fragment {
 
     protected FihiranaDao fihiranaDao;
 
-    private InputMethodManager gestionClavier = null;
-
     protected List<String> paroles = new ArrayList<>();
 
     public FihiranaFfpmFragment() {
@@ -52,11 +50,6 @@ public class FihiranaFfpmFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         String id = bundle.getString("id");
-
-        gestionClavier = (InputMethodManager)getActivity().getSystemService(
-                getActivity().INPUT_METHOD_SERVICE);
-        //Fermer clavier virtuel
-        gestionClavier.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),0);
 
         fihiranaDao = new FihiranaDao(getActivity());
 
