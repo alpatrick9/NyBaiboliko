@@ -266,7 +266,7 @@ public class MainActivity extends Activity {
                         array = new JSONArray(json);
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(i);
-                            Fihirana fihirana = new Fihirana(object.getString("id"),object.getString("title"),object.getString("description"));
+                            Fihirana fihirana = new Fihirana(object.getString("id"),object.getString("title"),object.getString("content"));
                             fihiranaDao.create(fihirana);
                         }
                     }

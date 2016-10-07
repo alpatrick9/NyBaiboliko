@@ -13,8 +13,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
+import com.patrick.developer.nybaiboliko.adapter.ParoleAdapter;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +33,13 @@ public class FihiranaFfpmFragment extends Fragment {
 
     protected View rootView;
 
-    protected TextView paroleTextView;
+    protected ListView parolesListView;
 
     protected FihiranaDao fihiranaDao;
 
     private InputMethodManager gestionClavier = null;
+
+    protected List<String> paroles = new ArrayList<>();
 
     public FihiranaFfpmFragment() {
     }
@@ -55,25 +61,37 @@ public class FihiranaFfpmFragment extends Fragment {
         fihiranaDao = new FihiranaDao(getActivity());
 
         Fihirana fihirana = fihiranaDao.findBy(id);
+        setParole(fihirana);
 
         setView();
 
-        setToolbar(fihirana.getTitle());
+        ParoleAdapter adapter = new ParoleAdapter(getActivity(), paroles);
+        parolesListView.setAdapter(adapter);
 
-        paroleTextView.setText(Html.fromHtml(fihirana.getDescription()));
+        setToolbar(fihirana.getTitle());
 
         return rootView;
     }
 
     public void setView() {
 
-        paroleTextView = (TextView) rootView.findViewById(R.id.parole);
+        parolesListView = (ListView) rootView.findViewById(R.id.paroles);
     }
 
     public void setToolbar(String title) {
-
         Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.white));
+    }
+
+    public void setParole(Fihirana fihirana) {
+        try {
+            JSONArray array = new JSONArray(fihirana.getDescription());
+            for(int i = 0; i < array.length(); i++) {
+                paroles.add(array.getString(i));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
