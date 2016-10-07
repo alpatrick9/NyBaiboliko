@@ -17,10 +17,11 @@
                 android:layout_width="500px"
                 android:layout_height="wrap_content"
                 android:id="@+id/key_word"
+                android:layout_alignBottom="@+id/find"
                 />
             <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
+                android:layout_width="90px"
+                android:layout_height="90px"
                 android:id="@+id/find"
                 android:src="@mipmap/ic_find"
                 android:background="@android:color/transparent"

@@ -9,12 +9,17 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextClock;
+import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.misc.TransactionManager;
@@ -119,6 +124,14 @@ public class MainActivity extends Activity {
         View headerView = getLayoutInflater().inflate(R.layout.entente_slide_menu, menuElementsList, false);
 
         menuElementsList.addHeaderView(headerView, null, false);
+
+        TextView copyRigthTextView = (TextView) getLayoutInflater().inflate(R.layout.footer_slide_menu,null);
+
+        String copyright = "&copy; 2016 Alain Patrick Rajaonarison";
+
+        copyRigthTextView.setText(Html.fromHtml(copyright));
+
+        menuElementsList.addFooterView(copyRigthTextView);
 
         SlideMenuAdapter adapterMenu = new SlideMenuAdapter(menuListe, this);
         menuElementsList.setAdapter(adapterMenu);

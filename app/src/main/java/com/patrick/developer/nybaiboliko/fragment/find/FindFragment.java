@@ -5,16 +5,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.patrick.developer.nybaiboliko.R;
+import com.patrick.developer.nybaiboliko.tools.Tools;
 
 /**
  * Created by developer on 10/7/16.
  */
 
 public class FindFragment extends Fragment {
+
     protected View rootView;
+
+    protected EditText findEditText;
 
     TabHost tabHost = null;
     @Override
@@ -23,6 +29,8 @@ public class FindFragment extends Fragment {
         rootView = inflater.inflate(R.layout.find, container, false);
 
         setTabHostView();
+
+        setView();
 
         return rootView;
     }
@@ -42,5 +50,16 @@ public class FindFragment extends Fragment {
         tabHost.addTab(spec);
 
         tabHost.setCurrentTab(0);
+    }
+
+    public void setView() {
+        findEditText = (EditText)rootView.findViewById(R.id.key_word);
+        int widthScreen = new Tools(getActivity()).getWidthSreenSize();
+        if(590 > widthScreen) {
+            ViewGroup.LayoutParams layoutParams = findEditText.getLayoutParams();
+            layoutParams.width = widthScreen - 100;
+            findEditText.setLayoutParams(layoutParams);
+        }
+
     }
 }

@@ -60,6 +60,13 @@ public class Tools {
         return (int)Math.ceil(largeur/(float)7)-5;
     }
 
+    public Integer getWidthSreenSize() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = ((Activity)context).getWindowManager();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        return metrics.widthPixels;
+    }
+
     public int[] getColorBible() {
         return colorBible;
     }
