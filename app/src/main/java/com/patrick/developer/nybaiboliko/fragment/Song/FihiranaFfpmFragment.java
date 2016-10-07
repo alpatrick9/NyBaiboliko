@@ -2,7 +2,9 @@ package com.patrick.developer.nybaiboliko.fragment.Song;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.ParoleAdapter;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
+import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
 
 import org.json.JSONArray;
@@ -37,6 +41,8 @@ public class FihiranaFfpmFragment extends Fragment {
 
     protected FihiranaDao fihiranaDao;
 
+    protected  Fihirana fihirana;
+
     protected List<String> paroles = new ArrayList<>();
 
     public FihiranaFfpmFragment() {
@@ -53,7 +59,7 @@ public class FihiranaFfpmFragment extends Fragment {
 
         fihiranaDao = new FihiranaDao(getActivity());
 
-        Fihirana fihirana = fihiranaDao.findBy(id);
+        fihirana = fihiranaDao.findBy(id);
         setParole(fihirana);
 
         setView();
@@ -62,6 +68,8 @@ public class FihiranaFfpmFragment extends Fragment {
         parolesListView.setAdapter(adapter);
 
         setToolbar(fihirana.getTitle());
+
+        setBackButton();
 
         return rootView;
     }
@@ -86,5 +94,34 @@ public class FihiranaFfpmFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setBackButton() {
+        FloatingActionButton backButton = (FloatingActionButton)rootView.findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new CheckFihiranaFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("type","ff");
+
+                if(fihirana.getId().contains("FFPM")) {
+                    bundle.putString("type","ffpm");
+                }
+
+                fragment.setArguments(bundle);
+
+                if (fragment != null) {
+                    RelativeLayout maLayout = (RelativeLayout) getActivity().findViewById(R.id.contenaire);
+                    maLayout.removeAllViews();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.contenaire, fragment).commit();
+                }
+
+            }
+        });
     }
 }

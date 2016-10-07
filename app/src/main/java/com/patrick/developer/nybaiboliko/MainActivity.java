@@ -155,30 +155,29 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 menuLayout.closeDrawer(menuElementsList);
-
+                Fragment fragment = null;
                 switch (position) {
                     case 1:
-                        replaceFragment(new CheckVersetBibleFragment());
+                        fragment =new CheckVersetBibleFragment();
                         break;
                     case 2:
-                        CheckFihiranaFragment fragmentFfmp = new CheckFihiranaFragment();
+                        fragment = new CheckFihiranaFragment();
 
                         Bundle bundleFfpm = new Bundle();
                         bundleFfpm.putString("type","ffpm");
 
-                        fragmentFfmp.setArguments(bundleFfpm);
-                        replaceFragment(fragmentFfmp);
+                        fragment.setArguments(bundleFfpm);
                         break;
                     case 3:
-                        CheckFihiranaFragment fragmentFf = new CheckFihiranaFragment();
+                        fragment = new CheckFihiranaFragment();
 
                         Bundle bundleFf = new Bundle();
                         bundleFf.putString("type","ff");
 
-                        fragmentFf.setArguments(bundleFf);
-                        replaceFragment(fragmentFf);
+                        fragment.setArguments(bundleFf);
                         break;
                 }
+                replaceFragment(fragment);
             }
         });
 

@@ -99,7 +99,8 @@ public class VersetManager {
 
         scroller.addView(baseLayout);
 
-        TextView titleTextView = new TextView(context);
+        TextView titleTextView = (TextView) ((Activity)context).getLayoutInflater().inflate(R.layout.indication_textwiew,null);;
+        titleTextView.setTextColor(tools.getColorBible()[globalClass.colorRef]);
         switch (ref) {
             case 0:
                 titleTextView.setText("Andininy faha:");
