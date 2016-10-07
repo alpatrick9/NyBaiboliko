@@ -51,7 +51,7 @@ public class ParoleAdapter extends BaseAdapter {
         }
 
         TextView number = (TextView)view.findViewById(R.id.parole_number);
-        number.setText(String.valueOf(i+1));
+        number.setText(String.valueOf(i+1)+".");
 
         String paroleText = paroles.get(i);
         if(i == 0 && paroleText.contains("Fiv :")) {
