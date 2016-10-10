@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -127,9 +129,7 @@ public class MainActivity extends Activity {
 
         TextView copyRigthTextView = (TextView) getLayoutInflater().inflate(R.layout.footer_slide_menu,null);
 
-        String copyright = "Alain Patrick Rajaonarison &copy; 2016";
-
-        copyRigthTextView.setText(Html.fromHtml(copyright));
+        copyRigthTextView.setText(Html.fromHtml(infoApp()));
 
         menuElementsList.addFooterView(copyRigthTextView);
 
@@ -292,6 +292,19 @@ public class MainActivity extends Activity {
                 return null;
             }
         });
+    }
+
+    public String infoApp() {
+        String copyright = "Alain Patrick Rajaonarison &copy; 2016";
+
+        try {
+            PackageInfo info = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_META_DATA);
+            copyright = copyright+" v"+info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return copyright;
     }
 
     @Override
