@@ -70,7 +70,13 @@ public class BibleFragment extends Fragment {
 
         toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
 
-        toolbar.setTitle(globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst()+"-"+globalClass.getversetLast());
+        String titleToolbar = globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst()+"-"+globalClass.getversetLast();
+
+        if(globalClass.getversetLast()-globalClass.getversetFirst() == 0) {
+            titleToolbar = globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst();
+        }
+
+        toolbar.setTitle(titleToolbar);
     }
 
     public void setBackButton() {

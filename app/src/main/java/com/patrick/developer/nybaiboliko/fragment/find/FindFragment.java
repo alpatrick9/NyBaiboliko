@@ -119,6 +119,7 @@ public class FindFragment extends Fragment {
         menuElementsList.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
 
         Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.find_title);
         toolbar.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
     }
 
