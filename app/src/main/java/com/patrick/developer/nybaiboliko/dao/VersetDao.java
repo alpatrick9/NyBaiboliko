@@ -43,4 +43,25 @@ public class VersetDao extends AbstractDao<Verset,Long> {
         return versets;
     }
 
+    public List<Verset> findByKeyWord(String keyWord) {
+        List<Verset> versets = new ArrayList<>();
+
+        try {
+            versets = dao.queryBuilder().where().like("verset_text", "%"+keyWord+"%").query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return versets;
+    }
+
+    public List<Verset> findByBookAndChap(String book, Integer chapitre) {
+        List<Verset> versets = new ArrayList<>();
+        try {
+            versets = dao.queryBuilder().where().eq("book",new Tools(context).formatTitleBook(book)).and().eq("chapitre_number",chapitre).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return versets;
+    }
+
 }

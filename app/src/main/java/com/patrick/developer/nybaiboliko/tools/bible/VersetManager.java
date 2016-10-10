@@ -159,7 +159,6 @@ public class VersetManager {
                             break;
                         case 1:
                             globalClass.setversetLast(index+1);
-                            toolbar.setTitle(globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst()+"-"+globalClass.getversetLast());
                             ref = -1;
                             openBible();
                             break;

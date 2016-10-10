@@ -1,6 +1,7 @@
 package com.patrick.developer.nybaiboliko.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class FihiranaAdapter extends BaseAdapter {
         }
 
         TextView title = (TextView)view.findViewById(R.id.title_fihirana_item);
-        title.setText(fihiranas.get(i).getTitle());
+        title.setText(Html.fromHtml(fihiranas.get(i).getTitle()));
         return view;
     }
 }

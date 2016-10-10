@@ -4,12 +4,24 @@ import android.app.Application;
 import android.support.annotation.ColorInt;
 
 import com.patrick.developer.nybaiboliko.R;
+import com.patrick.developer.nybaiboliko.models.Fihirana;
+import com.patrick.developer.nybaiboliko.models.Verset;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by developer on 10/5/16.
  */
 
 public class GlobalClass extends Application {
+
+    protected static List<Verset> resultFindVerset = new ArrayList<>();
+
+    protected static List<Fihirana> resultFindFihirana = new ArrayList<>();
+
+    protected static String keyWord = "";
+
     protected static Integer bookIndex;
     protected static String bookTitle;
     protected static Integer chapitre;
@@ -58,5 +70,29 @@ public class GlobalClass extends Application {
 
     public static void setversetLast(Integer versetLast) {
         GlobalClass.versetLast = versetLast;
+    }
+
+    public static List<Verset> getResultFindVerset() {
+        return resultFindVerset;
+    }
+
+    public static void setResultFindVerset(List<Verset> resultFindVerset) {
+        GlobalClass.resultFindVerset = resultFindVerset;
+    }
+
+    public static List<Fihirana> getResultFindFihirana() {
+        return resultFindFihirana;
+    }
+
+    public static void setResultFindFihirana(List<Fihirana> resultFindFihirana) {
+        GlobalClass.resultFindFihirana = resultFindFihirana;
+    }
+
+    public static String getKeyWord() {
+        return keyWord;
+    }
+
+    public static void setKeyWord(String keyWord) {
+        GlobalClass.keyWord = keyWord;
     }
 }

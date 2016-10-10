@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 
         TextView copyRigthTextView = (TextView) getLayoutInflater().inflate(R.layout.footer_slide_menu,null);
 
-        String copyright = "&copy; 2016 Alain Patrick Rajaonarison";
+        String copyright = "Alain Patrick Rajaonarison &copy; 2016";
 
         copyRigthTextView.setText(Html.fromHtml(copyright));
 

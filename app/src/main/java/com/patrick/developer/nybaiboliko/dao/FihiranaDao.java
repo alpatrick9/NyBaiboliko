@@ -40,16 +40,6 @@ public class FihiranaDao extends AbstractDao<Fihirana, String> {
         return fihirana;
     }
 
-    /*public Fihirana findFFBy(Integer number) {
-        String id = "FF_"+number;
-        return findBy(id);
-    }
-
-    public Fihirana findFFPMBy(Integer number) {
-        String id = "FFPM_"+number;
-        return findBy(id);
-    }*/
-
     public List<Fihirana> findAllTitleFFPM() {
         List<Fihirana> fihiranas = new ArrayList<>();
         try {
@@ -84,6 +74,17 @@ public class FihiranaDao extends AbstractDao<Fihirana, String> {
         List<Fihirana> fihiranas = new ArrayList<>();
         try {
             fihiranas = dao.queryBuilder().selectColumns("id","title").where().like("id","F_F_"+filtre+"%").query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fihiranas;
+    }
+
+    public List<Fihirana> findByKeyWord(String keyWord) {
+        List<Fihirana> fihiranas = new ArrayList<>();
+
+        try {
+            fihiranas = dao.queryBuilder().where().like("description", "%"+keyWord+"%").or().like("title", "%"+keyWord+"%").query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

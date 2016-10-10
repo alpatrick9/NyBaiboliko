@@ -1,9 +1,11 @@
 package com.patrick.developer.nybaiboliko.fragment.bible;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,8 @@ public class BibleFragment extends Fragment {
 
     protected GlobalClass globalClass;
 
+    Toolbar toolbar;
+
     public BibleFragment() {
     }
 
@@ -52,16 +56,21 @@ public class BibleFragment extends Fragment {
 
         versets = versetDao.findBy(globalClass.getBookTitle(),globalClass.getChapitre(),globalClass.getversetFirst(),globalClass.getversetLast());
 
-        VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
-        versetsListView.setAdapter(adapter);
+        setData();
 
         setBackButton();
+
+        showAll();
 
         return rootView;
     }
 
     public void setView() {
         versetsListView = (ListView) rootView.findViewById(R.id.versets_item);
+
+        toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+
+        toolbar.setTitle(globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst()+"-"+globalClass.getversetLast());
     }
 
     public void setBackButton() {
@@ -79,5 +88,22 @@ public class BibleFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void showAll() {
+        FloatingActionButton allButton = (FloatingActionButton)rootView.findViewById(R.id.all);
+        allButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                versets = versetDao.findByBookAndChap(globalClass.getBookTitle(),globalClass.getChapitre());
+                toolbar.setTitle(globalClass.getBookTitle() + " "+ globalClass.getChapitre());
+                setData();
+            }
+        });
+    }
+
+    public void setData() {
+        VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
+        versetsListView.setAdapter(adapter);
     }
 }
