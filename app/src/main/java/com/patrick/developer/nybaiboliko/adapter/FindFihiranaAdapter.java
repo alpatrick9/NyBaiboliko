@@ -72,10 +72,11 @@ public class FindFihiranaAdapter extends BaseAdapter {
             for(int j = 0; j < array.length(); j++) {
                 String temp = array.getString(j);
                 int num = j+1;
-                if(temp.contains(keyWord)) {
-                    paroles = "... <br/>"+num+". "+temp.replace(keyWord,"<html><font color=\"red\">"+keyWord+"</font></html>")+" ... ";
+                if(temp.toLowerCase().contains(keyWord.toLowerCase())) {
+                    String pattern = "(?i)"+keyWord;
+                    paroles = "... <br/>"+num+". "+temp.replaceAll(pattern,"<html><font color=\"red\">"+keyWord+"</font></html>")+" ... ";
                     if(j == 0) {
-                        paroles = num+". "+temp.replace(keyWord,"<html><font color=\"red\">"+keyWord+"</font></html>")+" ... ";
+                        paroles = num+". "+temp.replaceAll(pattern,"<html><font color=\"red\">"+keyWord+"</font></html>")+" ... ";
                     }
                     break;
                 }

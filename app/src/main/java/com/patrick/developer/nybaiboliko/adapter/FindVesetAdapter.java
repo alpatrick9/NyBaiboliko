@@ -62,8 +62,10 @@ public class FindVesetAdapter extends BaseAdapter {
         TextView resumeTextView = (TextView)view.findViewById(R.id.resume_bible);
         resumeTextView.setText(resumeBible);
 
+        String pattern = "(?i)"+keyWord;
+
         TextView itemViewText = (TextView)view.findViewById(R.id.text_find);
-        itemViewText.setText(Html.fromHtml(verset.getVersetText().replace(keyWord,"<html><font color=\"red\">"+keyWord+"</font></html>")));
+        itemViewText.setText(Html.fromHtml(verset.getVersetText().replaceAll(pattern,"<html><font color=\"red\">"+keyWord+"</font></html>")));
 
         return view;
     }
