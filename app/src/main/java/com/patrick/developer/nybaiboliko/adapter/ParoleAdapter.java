@@ -50,12 +50,26 @@ public class ParoleAdapter extends BaseAdapter {
             view = infalInflater.inflate(R.layout.fihirana_parole_item, null);
         }
 
-        TextView number = (TextView)view.findViewById(R.id.parole_number);
-        number.setText(String.valueOf(i+1)+".");
-
         String paroleText = paroles.get(i);
-        if(i == 0 && paroleText.contains("Fiv :")) {
-            paroleText = paroleText.replace("Fiv :","<html><font color=\"red\"><br/>Fiv:</font></html>");
+        paroleText = paroleText.replace("Fiv :","<html><br/><font color=\"red\"><b><i>Fiv:</i></b></font></html>");
+
+        int numbertParole = i+1;
+
+        TextView number = (TextView)view.findViewById(R.id.parole_number);
+
+        if(paroles.get(0).startsWith("Fiv :")) {
+            numbertParole = i;
+            switch (i) {
+                case 0:
+                    number.setText("");
+                    break;
+                default:
+                    number.setText(String.valueOf(numbertParole)+".");
+            }
+        }
+        else {
+
+            number.setText(String.valueOf(numbertParole)+".");
         }
 
         TextView parole = (TextView)view.findViewById(R.id.parole);
