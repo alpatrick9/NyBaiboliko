@@ -11,5 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/song_item"
-        android:layout_below="@+id/fihirana_filtre"/>
+        android:layout_below="@+id/fihirana_filtre"
+        android:divider="@android:color/transparent"/>
 </RelativeLayout>
