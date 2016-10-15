@@ -31,6 +31,7 @@ import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.tools.TabAnimation;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import org.json.JSONException;
@@ -61,6 +62,8 @@ public class FindFragment extends Fragment {
 
     TabHost tabHost = null;
 
+    Integer currentTab;
+
     ProgressDialog myProgressDialog = null;
 
     @Override
@@ -69,6 +72,8 @@ public class FindFragment extends Fragment {
         rootView = inflater.inflate(R.layout.find, container, false);
 
         globalClass = (GlobalClass) getActivity().getApplicationContext();
+
+        globalClass.setAnimation(getActivity(), rootView);
 
         setTabHostView();
 
@@ -98,6 +103,25 @@ public class FindFragment extends Fragment {
         tabHost.addTab(spec);
 
         tabHost.setCurrentTab(0);
+
+        currentTab = tabHost.getCurrentTab();
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                View currentView = tabHost.getCurrentView();
+                if (tabHost.getCurrentTab() > currentTab)
+                {
+                    currentView.setAnimation(TabAnimation.inFromRightAnimation() );
+                }
+                else
+                {
+                    currentView.setAnimation( TabAnimation.outToRightAnimation() );
+                }
+
+                currentTab = tabHost.getCurrentTab();
+            }
+        });
     }
 
     public void setView() {
@@ -224,4 +248,5 @@ public class FindFragment extends Fragment {
                     .replace(R.id.contenaire, fragment).commit();
         }
     }
+
 }

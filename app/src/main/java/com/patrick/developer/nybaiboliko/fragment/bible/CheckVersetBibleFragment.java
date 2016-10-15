@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 
 import com.patrick.developer.nybaiboliko.R;
+import com.patrick.developer.nybaiboliko.tools.TabAnimation;
 import com.patrick.developer.nybaiboliko.tools.bible.BookManager;
 
 /**
@@ -19,6 +20,8 @@ public class CheckVersetBibleFragment extends Fragment {
     protected View rootView;
 
     TabHost tabHost = null;
+
+    Integer currentTab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,5 +55,24 @@ public class CheckVersetBibleFragment extends Fragment {
         tabHost.addTab(spec);
 
         tabHost.setCurrentTab(0);
+
+        currentTab = tabHost.getCurrentTab();
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                View currentView = tabHost.getCurrentView();
+                if (tabHost.getCurrentTab() > currentTab)
+                {
+                    currentView.setAnimation(TabAnimation.inFromRightAnimation() );
+                }
+                else
+                {
+                    currentView.setAnimation( TabAnimation.outToRightAnimation() );
+                }
+
+                currentTab = tabHost.getCurrentTab();
+            }
+        });
     }
 }

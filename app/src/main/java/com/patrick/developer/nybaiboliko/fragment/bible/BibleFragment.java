@@ -50,6 +50,8 @@ public class BibleFragment extends Fragment {
 
         globalClass = (GlobalClass) getActivity().getApplicationContext();
 
+        globalClass.setAnimation(getActivity(), rootView);
+
         versetDao = new VersetDao(getActivity());
 
         setView();

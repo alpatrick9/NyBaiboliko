@@ -1,7 +1,11 @@
 package com.patrick.developer.nybaiboliko.tools;
 
 import android.app.Application;
+import android.content.Context;
 import android.support.annotation.ColorInt;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
@@ -94,5 +98,10 @@ public class GlobalClass extends Application {
 
     public static void setKeyWord(String keyWord) {
         GlobalClass.keyWord = keyWord;
+    }
+
+    public static void setAnimation(Context context, View view) {
+        Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up_fast);
+        view.setAnimation(scaleUp);
     }
 }

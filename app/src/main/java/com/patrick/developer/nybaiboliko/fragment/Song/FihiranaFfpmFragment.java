@@ -20,6 +20,7 @@ import com.patrick.developer.nybaiboliko.adapter.ParoleAdapter;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
 import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
+import com.patrick.developer.nybaiboliko.tools.GlobalClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +46,8 @@ public class FihiranaFfpmFragment extends Fragment {
 
     protected List<String> paroles = new ArrayList<>();
 
+    protected GlobalClass globalClass;
+
     public FihiranaFfpmFragment() {
     }
 
@@ -53,6 +56,10 @@ public class FihiranaFfpmFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fihirana_ffpm_fragment, container, false);
+
+        globalClass = (GlobalClass) getActivity().getApplicationContext();
+
+        globalClass.setAnimation(getActivity(), rootView);
 
         Bundle bundle = this.getArguments();
         String id = bundle.getString("id");
