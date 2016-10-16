@@ -33,6 +33,7 @@ import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
 import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.find.FindFragment;
+import com.patrick.developer.nybaiboliko.fragment.historique.HistoriqueFragment;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 import com.patrick.developer.nybaiboliko.tools.DialogBox;
@@ -115,6 +116,7 @@ public class MainActivity extends Activity {
         /**
          * Initialisation des liste du slide menu
          */
+        menuListe.add(this.getResources().getString(R.string.historique));
         menuListe.add(this.getResources().getString(R.string.bible));
         menuListe.add(this.getResources().getString(R.string.ffpm));
         menuListe.add(this.getResources().getString(R.string.ff));
@@ -173,9 +175,12 @@ public class MainActivity extends Activity {
                 Fragment fragment = null;
                 switch (position) {
                     case 1:
-                        fragment =new CheckVersetBibleFragment();
+                        fragment = new HistoriqueFragment();
                         break;
                     case 2:
+                        fragment =new CheckVersetBibleFragment();
+                        break;
+                    case 3:
                         fragment = new CheckFihiranaFragment();
 
                         Bundle bundleFfpm = new Bundle();
@@ -183,7 +188,7 @@ public class MainActivity extends Activity {
 
                         fragment.setArguments(bundleFfpm);
                         break;
-                    case 3:
+                    case 4:
                         fragment = new CheckFihiranaFragment();
 
                         Bundle bundleFf = new Bundle();
@@ -191,7 +196,7 @@ public class MainActivity extends Activity {
 
                         fragment.setArguments(bundleFf);
                         break;
-                    case 4:
+                    case 5:
                         fragment = new FindFragment();
                         break;
                 }
@@ -219,7 +224,6 @@ public class MainActivity extends Activity {
     public void initializeData() throws SQLException {
 
         final SqliteHelper sqliteHelper = OpenHelperManager.getHelper(this, SqliteHelper.class);
-
 
             final Handler handler = new Handler();
 

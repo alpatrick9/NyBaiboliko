@@ -7,6 +7,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
+import com.patrick.developer.nybaiboliko.models.HistoriqueFihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ public class SqliteHelper extends OrmLiteSqliteOpenHelper {
              */
             TableUtils.createTable(connectionSource, Verset.class);
             TableUtils.createTable(connectionSource, Fihirana.class);
+            TableUtils.createTable(connectionSource, HistoriqueFihirana.class);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,6 +48,7 @@ public class SqliteHelper extends OrmLiteSqliteOpenHelper {
              */
             TableUtils.dropTable(connectionSource, Verset.class, false);
             TableUtils.dropTable(connectionSource, Fihirana.class, false);
+            TableUtils.dropTable(connectionSource, HistoriqueFihirana.class, false);
             onCreate(database, connectionSource);
 
         } catch (SQLException e) {

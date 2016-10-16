@@ -26,10 +26,6 @@ public class FihiranaDao extends AbstractDao<Fihirana, String> {
         }
     }
 
-    public Integer countRow() throws SQLException {
-        return (int)dao.countOf();
-    }
-
     public Fihirana findBy(String id) {
         Fihirana fihirana = null;
         try {

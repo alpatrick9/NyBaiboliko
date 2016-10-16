@@ -28,4 +28,10 @@ public class AbstractDao<E,K> {
     public Integer update(E s) throws SQLException {
         return dao.update(s);
     }
+
+
+
+    public Integer countRow() throws SQLException {
+        return (int)dao.countOf();
+    }
 }

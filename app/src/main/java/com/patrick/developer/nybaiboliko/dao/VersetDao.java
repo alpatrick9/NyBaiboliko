@@ -28,10 +28,6 @@ public class VersetDao extends AbstractDao<Verset,Long> {
         }
     }
 
-    public Integer countRow() throws SQLException {
-        return (int)dao.countOf();
-    }
-
     public List<Verset> findBy(String book, Integer chapitre, Integer versetFirst, Integer versetLast) {
         List<Verset> versets = new ArrayList<>();
         try {
