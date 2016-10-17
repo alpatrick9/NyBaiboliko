@@ -20,8 +20,11 @@ import android.widget.Toast;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.FihiranaAdapter;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
+import com.patrick.developer.nybaiboliko.dao.HistoryFihiranaDao;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
+import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +83,8 @@ public class CheckFihiranaFragment extends Fragment {
                         getActivity().INPUT_METHOD_SERVICE);
                 //Fermer clavier virtuel
                 gestionClavier.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),0);
+
+                addHistory(songs.get(i));
 
                 Fragment fragment = new FihiranaFfpmFragment();
 
@@ -179,5 +184,16 @@ public class CheckFihiranaFragment extends Fragment {
                 }
             }
         });
+    }
+
+    protected void addHistory(Fihirana fihirana) {
+        HistoryFihiranaDao historyFihiranaDao = new HistoryFihiranaDao(getActivity());
+
+        HistoryFihirana historyFihirana = new HistoryFihirana(fihirana.getId(),fihirana.getTitle());
+        try {
+            historyFihiranaDao.create(historyFihirana);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -7,8 +7,8 @@ import com.j256.ormlite.table.DatabaseTable;
  * Created by patmi on 16/10/2016.
  */
 
-@DatabaseTable(tableName = "historique_fihiran")
-public class HistoriqueFihirana {
+@DatabaseTable(tableName = "history_fihirana")
+public class HistoryFihirana {
 
     @DatabaseField(generatedId = true)
     protected Long id;
@@ -19,10 +19,10 @@ public class HistoriqueFihirana {
     @DatabaseField
     protected String title;
 
-    public HistoriqueFihirana() {
+    public HistoryFihirana() {
     }
 
-    public HistoriqueFihirana(String idFihirana, String title) {
+    public HistoryFihirana(String idFihirana, String title) {
         this.idFihirana = idFihirana;
         this.title = title;
     }

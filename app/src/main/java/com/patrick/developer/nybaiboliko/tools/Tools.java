@@ -51,6 +51,11 @@ public class Tools {
         return title.substring(0, 3).toUpperCase();
     }
 
+    public String formatTitleBookToView(String title) {
+        if(title.startsWith("1") || title.startsWith("2") || title.startsWith("3") )
+            return title.substring(0,5);
+        return title.substring(0, 3);
+    }
     public Integer getSizeForSquare(){
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = ((Activity)context).getWindowManager();

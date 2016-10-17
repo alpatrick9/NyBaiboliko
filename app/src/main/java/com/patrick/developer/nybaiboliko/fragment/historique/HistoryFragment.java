@@ -2,43 +2,34 @@ package com.patrick.developer.nybaiboliko.fragment.historique;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.adapter.FindFihiranaAdapter;
-import com.patrick.developer.nybaiboliko.adapter.FindVesetAdapter;
-import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
-import com.patrick.developer.nybaiboliko.dao.HistoriqueFihiranaDao;
-import com.patrick.developer.nybaiboliko.dao.VersetDao;
+import com.patrick.developer.nybaiboliko.adapter.HistoryBibleAdapter;
+import com.patrick.developer.nybaiboliko.adapter.HistoryFihiranaAdapter;
+import com.patrick.developer.nybaiboliko.dao.HistoryFihiranaDao;
+import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
-import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.models.HistoriqueFihirana;
-import com.patrick.developer.nybaiboliko.models.Verset;
+import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
+import com.patrick.developer.nybaiboliko.models.HistoryVerset;
 import com.patrick.developer.nybaiboliko.tools.GlobalClass;
 import com.patrick.developer.nybaiboliko.tools.TabAnimation;
-import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by patmi on 16/10/2016.
  */
-public class HistoriqueFragment extends Fragment {
+public class HistoryFragment extends Fragment {
 
     protected View rootView;
 
@@ -52,17 +43,22 @@ public class HistoriqueFragment extends Fragment {
 
     Integer currentTab;
 
-    public HistoriqueFragment() {
+    Integer tabHostId = 0;
+
+    public HistoryFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.historique, container, false);
+        rootView = inflater.inflate(R.layout.history, container, false);
 
         globalClass = (GlobalClass) getActivity().getApplicationContext();
 
         globalClass.setAnimation(getActivity(), rootView);
+
+        Bundle bundle = getArguments();
+        tabHostId = bundle.getInt("tabHostId");
 
         setTabHostView();
 
@@ -93,7 +89,7 @@ public class HistoriqueFragment extends Fragment {
         spec.setIndicator("Fihirana");
         tabHost.addTab(spec);
 
-        tabHost.setCurrentTab(0);
+        tabHost.setCurrentTab(tabHostId);
 
         currentTab = tabHost.getCurrentTab();
 
@@ -113,6 +109,8 @@ public class HistoriqueFragment extends Fragment {
                 currentTab = tabHost.getCurrentTab();
             }
         });
+
+        //TabAnimation.swipeTabHost(rootView,tabHost);
     }
 
     public void setView() {
@@ -130,13 +128,17 @@ public class HistoriqueFragment extends Fragment {
     }
 
     public void initializeData() throws SQLException {
-        HistoriqueFihiranaDao historiqueFihiranaDao = new HistoriqueFihiranaDao(getActivity());
-        System.out.println("nombre historique "+historiqueFihiranaDao.countRow());
-        /*FindFihiranaAdapter fihiranaAdapter = new FindFihiranaAdapter(getActivity(), globalClass.getResultFindFihirana());
+        HistoryFihiranaDao historyFihiranaDao = new HistoryFihiranaDao(getActivity());
+        List<HistoryFihirana> historyFihiranas = historyFihiranaDao.findAllOrder();
+
+        HistoryFihiranaAdapter fihiranaAdapter = new HistoryFihiranaAdapter(getActivity(), historyFihiranas);
         resultSongView.setAdapter(fihiranaAdapter);
 
-        /*FindVesetAdapter vesetAdapter = new FindVesetAdapter(getActivity(), globalClass.getResultFindVerset());
-        resultBibleView.setAdapter(vesetAdapter);*/
+        HistoryVersetDao historyVersetDao = new HistoryVersetDao(getActivity());
+        List<HistoryVerset> historyVersets = historyVersetDao.findAllOrder();
+
+        HistoryBibleAdapter vesetAdapter = new HistoryBibleAdapter(getActivity(), historyVersets);
+        resultBibleView.setAdapter(vesetAdapter);
     }
 
     public void addlistener() {

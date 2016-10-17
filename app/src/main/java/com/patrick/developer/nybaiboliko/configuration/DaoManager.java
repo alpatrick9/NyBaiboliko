@@ -5,7 +5,8 @@ import android.content.Context;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.models.HistoriqueFihirana;
+import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
+import com.patrick.developer.nybaiboliko.models.HistoryVerset;
 import com.patrick.developer.nybaiboliko.models.Verset;
 
 import java.sql.SQLException;
@@ -22,7 +23,11 @@ public class DaoManager {
 
     Dao<Fihirana, String> fihiranaDao;
 
-    Dao<HistoriqueFihirana, Long> historiqueFihiranaDao;
+    Dao<HistoryFihirana, Long> historyFihiranaDao;
+
+    Dao<HistoryVerset, Long> historyVersetDao;
+
+
 
     public DaoManager(Context context) {
         sqliteHelper = OpenHelperManager.getHelper(context, SqliteHelper.class);
@@ -40,9 +45,15 @@ public class DaoManager {
         return fihiranaDao;
     }
 
-    public Dao<HistoriqueFihirana, Long> getHistoriqueFihiranaDao() throws SQLException {
-        if(historiqueFihiranaDao == null)
-            historiqueFihiranaDao = sqliteHelper.getDao(HistoriqueFihirana.class);
-        return historiqueFihiranaDao;
+    public Dao<HistoryFihirana, Long> getHistoryFihiranaDao() throws SQLException {
+        if(historyFihiranaDao == null)
+            historyFihiranaDao = sqliteHelper.getDao(HistoryFihirana.class);
+        return historyFihiranaDao;
+    }
+
+    public Dao<HistoryVerset, Long> getHistoryVersetDao() throws SQLException {
+        if(historyVersetDao == null)
+            historyVersetDao = sqliteHelper.getDao(HistoryVerset.class);
+        return historyVersetDao;
     }
 }

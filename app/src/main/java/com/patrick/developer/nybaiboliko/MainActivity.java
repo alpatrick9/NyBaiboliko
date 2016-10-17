@@ -7,20 +7,16 @@ import android.app.ProgressDialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -30,10 +26,9 @@ import com.patrick.developer.nybaiboliko.configuration.SqliteHelper;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
-import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.find.FindFragment;
-import com.patrick.developer.nybaiboliko.fragment.historique.HistoriqueFragment;
+import com.patrick.developer.nybaiboliko.fragment.historique.HistoryFragment;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
 import com.patrick.developer.nybaiboliko.models.Verset;
 import com.patrick.developer.nybaiboliko.tools.DialogBox;
@@ -116,7 +111,7 @@ public class MainActivity extends Activity {
         /**
          * Initialisation des liste du slide menu
          */
-        menuListe.add(this.getResources().getString(R.string.historique));
+        menuListe.add(this.getResources().getString(R.string.story_title));
         menuListe.add(this.getResources().getString(R.string.bible));
         menuListe.add(this.getResources().getString(R.string.ffpm));
         menuListe.add(this.getResources().getString(R.string.ff));
@@ -175,7 +170,12 @@ public class MainActivity extends Activity {
                 Fragment fragment = null;
                 switch (position) {
                     case 1:
-                        fragment = new HistoriqueFragment();
+                        fragment = new HistoryFragment();
+
+                        Bundle bundleHistory = new Bundle();
+                        bundleHistory.putInt("tabHostId",0);
+
+                        fragment.setArguments(bundleHistory);
                         break;
                     case 2:
                         fragment =new CheckVersetBibleFragment();
@@ -225,9 +225,11 @@ public class MainActivity extends Activity {
 
         final SqliteHelper sqliteHelper = OpenHelperManager.getHelper(this, SqliteHelper.class);
 
-            final Handler handler = new Handler();
+        sqliteHelper.createTableIfNotExist(this);
 
-            /*final Runnable msg = new Runnable() {
+            /*final Handler handler = new Handler();
+
+            final Runnable msg = new Runnable() {
                 @Override
                 public void run() {
                     MainActivity.this.runOnUiThread(new Runnable() {

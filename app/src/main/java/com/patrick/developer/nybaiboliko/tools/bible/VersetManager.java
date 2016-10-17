@@ -18,11 +18,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
+import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
 import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
+import com.patrick.developer.nybaiboliko.models.HistoryVerset;
 import com.patrick.developer.nybaiboliko.tools.GlobalClass;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -178,6 +181,15 @@ public class VersetManager {
             FragmentManager fragmentManager = ((Activity)context).getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.contenaire, fragment).commit();
+        }
+
+        HistoryVersetDao historyVersetDao = new HistoryVersetDao(context);
+        HistoryVerset historyVerset = new HistoryVerset(new Tools(context).formatTitleBookToView(globalClass.getBookTitle()),globalClass.getBookIndex(),globalClass.getChapitre(),globalClass.getversetFirst(),globalClass.getversetLast());
+
+        try {
+            historyVersetDao.create(historyVerset);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

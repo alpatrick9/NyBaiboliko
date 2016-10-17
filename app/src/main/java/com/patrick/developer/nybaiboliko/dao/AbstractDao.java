@@ -29,9 +29,11 @@ public class AbstractDao<E,K> {
         return dao.update(s);
     }
 
-
-
     public Integer countRow() throws SQLException {
         return (int)dao.countOf();
+    }
+
+    public boolean isTableExist() throws SQLException {
+        return dao.isTableExists();
     }
 }

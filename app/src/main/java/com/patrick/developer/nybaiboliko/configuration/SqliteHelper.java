@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.patrick.developer.nybaiboliko.dao.HistoryFihiranaDao;
+import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
 import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.models.HistoriqueFihirana;
+import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
+import com.patrick.developer.nybaiboliko.models.HistoryVerset;
 import com.patrick.developer.nybaiboliko.models.Verset;
 
 import java.sql.SQLException;
@@ -33,7 +36,8 @@ public class SqliteHelper extends OrmLiteSqliteOpenHelper {
              */
             TableUtils.createTable(connectionSource, Verset.class);
             TableUtils.createTable(connectionSource, Fihirana.class);
-            TableUtils.createTable(connectionSource, HistoriqueFihirana.class);
+            TableUtils.createTable(connectionSource, HistoryFihirana.class);
+            TableUtils.createTable(connectionSource, HistoryVerset.class);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,11 +52,25 @@ public class SqliteHelper extends OrmLiteSqliteOpenHelper {
              */
             TableUtils.dropTable(connectionSource, Verset.class, false);
             TableUtils.dropTable(connectionSource, Fihirana.class, false);
-            TableUtils.dropTable(connectionSource, HistoriqueFihirana.class, false);
+            TableUtils.dropTable(connectionSource, HistoryFihirana.class, false);
+            TableUtils.dropTable(connectionSource, HistoryVerset.class, false);
             onCreate(database, connectionSource);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createTableIfNotExist(Context context) throws SQLException {
+
+        HistoryFihiranaDao historyFihiranaDao = new HistoryFihiranaDao(context);
+
+        HistoryVersetDao historyVersetDao = new HistoryVersetDao(context);
+
+        if(!historyFihiranaDao.isTableExist())
+            TableUtils.createTable(connectionSource, HistoryFihirana.class);
+
+        if(!historyVersetDao.isTableExist())
+            TableUtils.createTable(connectionSource, HistoryVerset.class);
     }
 }

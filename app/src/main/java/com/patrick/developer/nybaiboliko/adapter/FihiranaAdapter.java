@@ -53,7 +53,7 @@ public class FihiranaAdapter extends BaseAdapter {
             view = infalInflater.inflate(R.layout.fihirana_title_item, null);
         }
 
-        TextView title = (TextView)view.findViewById(R.id.title_fihirana_item);
+        TextView title = (TextView)view.findViewById(R.id.title_item);
         title.setText(Html.fromHtml(fihiranas.get(i).getTitle()));
 
         Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up_fast);
