@@ -80,7 +80,7 @@ public class ChapitreManager {
             heightButton = windowProportion;
         }
 
-        textButtonSize = (int)Math.ceil(widthButton*0.1);
+        textButtonSize = globalClass.bibleBottonSize;
     }
 
     public void creationBoutonChap(){

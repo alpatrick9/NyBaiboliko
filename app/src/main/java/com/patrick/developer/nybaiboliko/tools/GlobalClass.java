@@ -34,6 +34,8 @@ public class GlobalClass extends Application {
 
     public static Integer squareWidthMax = 200;
 
+    public static Integer bibleBottonSize = 0;
+
     public int colorRef =  0;
 
     public static Integer getBookIndex() {

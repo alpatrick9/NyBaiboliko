@@ -87,7 +87,7 @@ public class VersetManager {
             heightButton = windowProportion;
         }
 
-        textButtonSize = (int)Math.ceil(widthButton*0.1);
+        textButtonSize = globalClass.bibleBottonSize;
     }
 
     public void creationButtonVerset() {
