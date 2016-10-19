@@ -75,7 +75,7 @@ public class BookManager {
             heightButton = windowProportion;
         }
 
-        globalClass.bibleBottonSize = (int)Math.ceil(widthButton*0.2);
+        globalClass.bibleBottonSize = (int)Math.ceil(widthButton*0.17);
         textButtonSize = globalClass.bibleBottonSize;
     }
 

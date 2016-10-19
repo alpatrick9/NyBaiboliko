@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 
+import com.j256.ormlite.table.TableUtils;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.HistoryBibleAdapter;
 import com.patrick.developer.nybaiboliko.adapter.HistoryFihiranaAdapter;
@@ -45,6 +47,8 @@ public class HistoryFragment extends Fragment {
 
     Integer tabHostId = 0;
 
+    protected static float lastX;
+
     public HistoryFragment() {
     }
 
@@ -55,7 +59,7 @@ public class HistoryFragment extends Fragment {
 
         globalClass = (GlobalClass) getActivity().getApplicationContext();
 
-        globalClass.setAnimation(getActivity(), rootView);
+        //globalClass.setAnimation(getActivity(), rootView);
 
         Bundle bundle = getArguments();
         tabHostId = bundle.getInt("tabHostId");
@@ -69,8 +73,6 @@ public class HistoryFragment extends Fragment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        addlistener();
 
         return rootView;
     }
@@ -141,46 +143,4 @@ public class HistoryFragment extends Fragment {
         resultBibleView.setAdapter(vesetAdapter);
     }
 
-    public void addlistener() {
-        resultSongView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Fragment fragment = new FihiranaFfpmFragment();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("id",globalClass.getResultFindFihirana().get(i).getId());
-
-                fragment.setArguments(bundle);
-                changeFragment(fragment);
-
-            }
-        });
-
-        resultBibleView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                /*Verset verset = globalClass.getResultFindVerset().get(i);
-
-                globalClass.setBookTitle(verset.getBook());
-                globalClass.setChapitre(verset.getChapitreNumber());
-                globalClass.setversetFirst(verset.getVersetNumber());
-                globalClass.setversetLast(verset.getVersetNumber());
-
-                Fragment fragment = new BibleFragment();
-                changeFragment(fragment);*/
-            }
-        });
-    }
-
-    public void changeFragment(Fragment fragment) {
-        if (fragment != null) {
-            RelativeLayout maLayout = (RelativeLayout) getActivity().findViewById(R.id.contenaire);
-            maLayout.removeAllViews();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.contenaire, fragment).commit();
-        }
-    }
 }
