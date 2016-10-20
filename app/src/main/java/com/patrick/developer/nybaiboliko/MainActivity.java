@@ -32,6 +32,7 @@ import com.patrick.developer.nybaiboliko.fragment.historique.HistoryFragment;
 import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
 import com.patrick.developer.nybaiboliko.models.entity.Verset;
 import com.patrick.developer.nybaiboliko.tools.DialogBox;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
@@ -64,6 +65,8 @@ public class MainActivity extends Activity {
 
     private InputMethodManager gestionClavier = null;
 
+    GlobalVariable globalVariable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,10 @@ public class MainActivity extends Activity {
 
         gestionClavier = (InputMethodManager)getSystemService(
                 INPUT_METHOD_SERVICE);
+
+        globalVariable = (GlobalVariable)getApplicationContext();
+
+        resetVariable();
 
         setView();
 
@@ -168,6 +175,9 @@ public class MainActivity extends Activity {
 
                 menuLayout.closeDrawer(menuElementsList);
                 Fragment fragment = null;
+
+                resetVariable();
+
                 switch (position) {
                     case 1:
                         fragment = new HistoryFragment();
@@ -311,6 +321,11 @@ public class MainActivity extends Activity {
         }
 
         return copyright;
+    }
+
+    private void resetVariable() {
+        globalVariable.nbBook = 0;
+        globalVariable.numTabBook = globalVariable.nbBook;
     }
 
     @Override

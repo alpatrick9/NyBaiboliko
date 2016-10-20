@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -140,7 +141,17 @@ public class BookManager {
 
     public void getTitleBook(int index) {
         String nomLivre = jsonParse.getBook(context, index);
-        globalVariable.bookRef.bookTitle = nomLivre;
+        switch (globalVariable.numTabBook) {
+            case 0:
+                globalVariable.bookRef.bookTitle = nomLivre;
+                break;
+            case 1:
+                globalVariable.bookRef1.bookTitle = nomLivre;
+                break;
+            case 2:
+                globalVariable.bookRef2.bookTitle = nomLivre;
+                break;
+        }
     }
 
 
@@ -154,13 +165,24 @@ public class BookManager {
                     Integer nbChap = jsonParse.getNumberChapOf(context, index);
                     Integer refColor = tools.recupColorBible(index);
 
-                    globalVariable.bookRef.bookIndex = index;
-
                     getTitleBook(index);
 
                     new ChapitreManager(context, rootView, tabHost, nbChap, refColor).creationBoutonChap();
 
-                    toolbar.setTitle(globalVariable.bookRef.bookTitle);
+                    switch (globalVariable.numTabBook) {
+                        case 0:
+                            globalVariable.bookRef.bookIndex = index;
+                            toolbar.setTitle(globalVariable.bookRef.bookTitle);
+                            break;
+                        case 1:
+                            globalVariable.bookRef1.bookIndex = index;
+                            toolbar.setTitle(globalVariable.bookRef1.bookTitle);
+                            break;
+                        case 2:
+                            globalVariable.bookRef2.bookIndex = index;
+                            toolbar.setTitle(globalVariable.bookRef2.bookTitle);
+                            break;
+                    }
                     toolbar.setBackgroundColor(tools.getColorBible()[refColor]);
 
                     globalVariable.colorRef = refColor;

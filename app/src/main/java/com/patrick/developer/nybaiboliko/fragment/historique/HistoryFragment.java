@@ -1,13 +1,18 @@
 package com.patrick.developer.nybaiboliko.fragment.historique;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.HistoryBibleAdapter;
@@ -41,7 +46,9 @@ public class HistoryFragment extends Fragment {
 
     Integer tabHostId = 0;
 
-    protected static float lastX;
+    HistoryFihiranaDao historyFihiranaDao;
+
+    HistoryVersetDao historyVersetDao;
 
     public HistoryFragment() {
     }
@@ -52,6 +59,10 @@ public class HistoryFragment extends Fragment {
         rootView = inflater.inflate(R.layout.history, container, false);
 
         globalVariable = (GlobalVariable) getActivity().getApplicationContext();
+
+        historyFihiranaDao = new HistoryFihiranaDao(getActivity());
+
+        historyVersetDao = new HistoryVersetDao(getActivity());
 
         //globalVariable.setAnimation(getActivity(), rootView);
 
@@ -67,6 +78,8 @@ public class HistoryFragment extends Fragment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        deleteAllStory();
 
         return rootView;
     }
@@ -124,17 +137,52 @@ public class HistoryFragment extends Fragment {
     }
 
     public void initializeData() throws SQLException {
-        HistoryFihiranaDao historyFihiranaDao = new HistoryFihiranaDao(getActivity());
         List<HistoryFihirana> historyFihiranas = historyFihiranaDao.findAllOrder();
 
         HistoryFihiranaAdapter fihiranaAdapter = new HistoryFihiranaAdapter(getActivity(), historyFihiranas);
         resultSongView.setAdapter(fihiranaAdapter);
 
-        HistoryVersetDao historyVersetDao = new HistoryVersetDao(getActivity());
         List<HistoryVerset> historyVersets = historyVersetDao.findAllOrder();
 
         HistoryBibleAdapter vesetAdapter = new HistoryBibleAdapter(getActivity(), historyVersets);
         resultBibleView.setAdapter(vesetAdapter);
+    }
+
+    public void deleteAllStory() {
+        FloatingActionButton deleteAll = (FloatingActionButton)rootView.findViewById(R.id.delete_all_story);
+
+        deleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"Tsindrio elaela raha hamafa ireo rehetra efa novakiana", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        deleteAll.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                try {
+                    historyFihiranaDao.deleteAll();
+                    historyVersetDao.deleteAll();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                HistoryFragment fragment = new HistoryFragment();
+
+                Bundle bundleHistory = new Bundle();
+                bundleHistory.putInt("tabHostId",0);
+
+                fragment.setArguments(bundleHistory);
+                if (fragment != null) {
+                    RelativeLayout maLayout = (RelativeLayout) ((Activity)getActivity()).findViewById(R.id.contenaire);
+                    maLayout.removeAllViews();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.contenaire, fragment).commit();
+                }
+                return false;
+            }
+        });
     }
 
 }

@@ -46,4 +46,9 @@ public class HistoryVersetDao extends AbstractDao<HistoryVerset,Long> {
         }
         return historyVersets;
     }
+
+    public void deleteAll() throws SQLException {
+        DeleteBuilder<HistoryVerset, Long> deleteBuilder = dao.deleteBuilder();
+        deleteBuilder.delete();
+    }
 }

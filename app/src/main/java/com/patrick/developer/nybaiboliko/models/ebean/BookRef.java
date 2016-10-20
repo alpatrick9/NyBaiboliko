@@ -6,10 +6,10 @@ package com.patrick.developer.nybaiboliko.models.ebean;
 
 public class BookRef {
 
-    public static Integer bookIndex;
-    public static String bookTitle;
-    public static Integer chapitre;
-    public static Integer versetStart;
-    public static Integer versetLast;
+    public Integer bookIndex;
+    public String bookTitle;
+    public Integer chapitre;
+    public Integer versetStart;
+    public Integer versetLast;
 
 }

@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tabHost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <LinearLayout
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TabHost
+        android:id="@+id/tabHost"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TabWidget>
-        <!-- container of tabs -->
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+        android:layout_marginBottom="?attr/actionBarSize">
 
-            <!-- tab N°1 -->
-            <!-- Inclusion of the interface -->
-            <include
-                android:id="@+id/story_bible"
-                layout="@layout/tab_result_bible"
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TabWidget>
+            <!-- container of tabs -->
+            <FrameLayout
+                android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"></include>
-            <!-- tab N°2 -->
-            <!-- Inclusion of the interface -->
-            <include
-                android:id="@+id/story_song"
-                layout="@layout/tab_result_song"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"></include>
-        </FrameLayout>
-    </LinearLayout>
-</TabHost>
+                android:layout_height="fill_parent">
+
+                <!-- tab N°1 -->
+                <!-- Inclusion of the interface -->
+                <include
+                    android:id="@+id/story_bible"
+                    layout="@layout/tab_result_bible"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"></include>
+                <!-- tab N°2 -->
+                <!-- Inclusion of the interface -->
+                <include
+                    android:id="@+id/story_song"
+                    layout="@layout/tab_result_song"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"></include>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/delete_all_story"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+</android.support.design.widget.CoordinatorLayout>

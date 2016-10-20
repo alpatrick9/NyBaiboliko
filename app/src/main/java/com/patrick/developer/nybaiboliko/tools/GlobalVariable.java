@@ -18,7 +18,15 @@ public class GlobalVariable extends Application {
     /**
      * resume all reference of holy bible to read
      */
-    public BookRef bookRef;
+    public BookRef bookRef = new BookRef();
+
+    public BookRef bookRef1 = new BookRef();
+
+    public BookRef bookRef2 = new BookRef();
+
+    public Integer numTabBook = 0;
+
+    public Integer nbBook = 0;
 
     /**
      * size max of button to choise holy bible

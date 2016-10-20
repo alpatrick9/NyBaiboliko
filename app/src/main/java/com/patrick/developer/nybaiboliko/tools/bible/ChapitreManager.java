@@ -52,7 +52,7 @@ public class ChapitreManager {
 
     int widthButton = 0;
     int heightButton = 0;
-    int textButtonSize =0;
+    int textButtonSize = 0;
 
     int windowProportion = 0;
 
@@ -65,17 +65,17 @@ public class ChapitreManager {
 
         this.tools = new Tools(context);
         this.jsonParse = new JsonParser();
-        layoutChapitre = (LinearLayout)rootView.findViewById(R.id.chapitres);
-        layoutVerset = (LinearLayout)rootView.findViewById(R.id.versets);
+        layoutChapitre = (LinearLayout) rootView.findViewById(R.id.chapitres);
+        layoutVerset = (LinearLayout) rootView.findViewById(R.id.versets);
         globalVariable = (GlobalVariable) context.getApplicationContext();
-        toolbar = (Toolbar) ((Activity)context).findViewById(R.id.toolbar);
+        toolbar = (Toolbar) ((Activity) context).findViewById(R.id.toolbar);
 
         widthButton = globalVariable.squareWidthMax;
         heightButton = globalVariable.squareWidthMax;
 
         this.windowProportion = tools.getSizeForSquare();
 
-        if(globalVariable.squareWidthMax > windowProportion) {
+        if (globalVariable.squareWidthMax > windowProportion) {
             widthButton = windowProportion;
             heightButton = windowProportion;
         }
@@ -83,7 +83,7 @@ public class ChapitreManager {
         textButtonSize = globalVariable.bibleTextBottonSize;
     }
 
-    public void creationBoutonChap(){
+    public void creationBoutonChap() {
         buttonChapitres = new ArrayList<>();
 
         int numerosChapitre = 1;
@@ -98,20 +98,20 @@ public class ChapitreManager {
         TableLayout tabChap = new TableLayout(context);
         scroller.addView(tabChap);
 
-        int nbLigne = (int)Math.ceil(numberOfChap/(float)7);
+        int nbLigne = (int) Math.ceil(numberOfChap / (float) 7);
 
-        for(int j =0; j< nbLigne; j++ ){
+        for (int j = 0; j < nbLigne; j++) {
             TableRow r = new TableRow(context);
             r.setGravity(Gravity.CENTER);
 
-            for(int k = 0; k < 7; k++){
-                if(numerosChapitre > numberOfChap){
+            for (int k = 0; k < 7; k++) {
+                if (numerosChapitre > numberOfChap) {
                     break;
                 }
                 Button b = new Button(context);
                 r.addView(b);
-                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)b.getLayoutParams();
-                params.setMargins(1,1,1,1);
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) b.getLayoutParams();
+                params.setMargins(1, 1, 1, 1);
                 params.width = widthButton;
                 params.height = heightButton;
                 b.setLayoutParams(params);
@@ -131,13 +131,28 @@ public class ChapitreManager {
     public View.OnClickListener listenerChapitre = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Integer index = (Integer)v.getTag();
-            for(Button b: buttonChapitres) {
-                if(b.getTag() == index){
-                    globalVariable.bookRef.chapitre = index;
-                    Integer nbVerset = jsonParse.getNumberVersetOf(context, globalVariable.bookRef.bookIndex, globalVariable.bookRef.chapitre-1);
-                    new VersetManager(context,rootView,tools,tabHost,nbVerset,refColorBible,0).creationButtonVerset();
-                    toolbar.setTitle(globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre);
+            Integer index = (Integer) v.getTag();
+            for (Button b : buttonChapitres) {
+                Integer nbVerset = 0;
+                if (b.getTag() == index) {
+                    switch (globalVariable.numTabBook) {
+                        case 0:
+                            globalVariable.bookRef.chapitre = index;
+                            nbVerset = jsonParse.getNumberVersetOf(context, globalVariable.bookRef.bookIndex, globalVariable.bookRef.chapitre - 1);
+                            toolbar.setTitle(globalVariable.bookRef.bookTitle + " " + globalVariable.bookRef.chapitre);
+                            break;
+                        case 1:
+                            globalVariable.bookRef1.chapitre = index;
+                            nbVerset = jsonParse.getNumberVersetOf(context, globalVariable.bookRef1.bookIndex, globalVariable.bookRef1.chapitre - 1);
+                            toolbar.setTitle(globalVariable.bookRef1.bookTitle + " " + globalVariable.bookRef1.chapitre);
+                            break;
+                        case 2:
+                            globalVariable.bookRef2.chapitre = index;
+                            nbVerset = jsonParse.getNumberVersetOf(context, globalVariable.bookRef2.bookIndex, globalVariable.bookRef2.chapitre - 1);
+                            toolbar.setTitle(globalVariable.bookRef2.bookTitle + " " + globalVariable.bookRef2.chapitre);
+                            break;
+                    }
+                    new VersetManager(context, rootView, tools, tabHost, nbVerset, refColorBible, 0).creationButtonVerset();
                     tabHost.setCurrentTab(2);
                 }
             }

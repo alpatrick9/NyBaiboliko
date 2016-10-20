@@ -45,4 +45,9 @@ public class HistoryFihiranaDao extends AbstractDao<HistoryFihirana,Long> {
         return historyFihiranas;
     }
 
+    public void deleteAll() throws SQLException {
+        DeleteBuilder<HistoryFihirana, Long> deleteBuilder = dao.deleteBuilder();
+        deleteBuilder.delete();
+    }
+
 }
