@@ -13,7 +13,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
@@ -35,7 +35,7 @@ public class BookManager {
 
     JsonParser jsonParse;
 
-    GlobalClass globalClass;
+    GlobalVariable globalVariable;
 
     Toolbar toolbar;
 
@@ -55,7 +55,7 @@ public class BookManager {
         this.tools = new Tools(context);
         this.tabHost = tabHost;
         this.jsonParse = new JsonParser();
-        globalClass = (GlobalClass) context.getApplicationContext();
+        globalVariable = (GlobalVariable) context.getApplicationContext();
 
         toolbar = (Toolbar) ((Activity)context).findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
@@ -65,18 +65,18 @@ public class BookManager {
         menuElementsList = (ListView) ((Activity)context).findViewById(R.id.menu_elements);
         menuElementsList.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
 
-        widthButton = globalClass.squareWidthMax;
-        heightButton = globalClass.squareWidthMax;
+        widthButton = globalVariable.squareWidthMax;
+        heightButton = globalVariable.squareWidthMax;
 
         this.windowProportion = tools.getSizeForSquare();
 
-        if(globalClass.squareWidthMax > windowProportion) {
+        if(globalVariable.squareWidthMax > windowProportion) {
             widthButton = windowProportion;
             heightButton = windowProportion;
         }
 
-        globalClass.bibleBottonSize = (int)Math.ceil(widthButton*0.17);
-        textButtonSize = globalClass.bibleBottonSize;
+        globalVariable.bibleTextBottonSize = (int)Math.ceil(widthButton*0.17);
+        textButtonSize = globalVariable.bibleTextBottonSize;
     }
 
     public void creationBoutonLivre() {
@@ -140,7 +140,7 @@ public class BookManager {
 
     public void getTitleBook(int index) {
         String nomLivre = jsonParse.getBook(context, index);
-        globalClass.setBookTitle(nomLivre);
+        globalVariable.bookRef.bookTitle = nomLivre;
     }
 
 
@@ -154,16 +154,16 @@ public class BookManager {
                     Integer nbChap = jsonParse.getNumberChapOf(context, index);
                     Integer refColor = tools.recupColorBible(index);
 
-                    globalClass.setBookIndex(index);
+                    globalVariable.bookRef.bookIndex = index;
 
                     getTitleBook(index);
 
                     new ChapitreManager(context, rootView, tabHost, nbChap, refColor).creationBoutonChap();
 
-                    toolbar.setTitle(globalClass.getBookTitle());
+                    toolbar.setTitle(globalVariable.bookRef.bookTitle);
                     toolbar.setBackgroundColor(tools.getColorBible()[refColor]);
 
-                    globalClass.colorRef = refColor;
+                    globalVariable.colorRef = refColor;
 
                     menuElementsList.setBackgroundColor(tools.getColorBible()[refColor]);
                     tabHost.setCurrentTab(1);

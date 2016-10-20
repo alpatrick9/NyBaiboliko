@@ -3,7 +3,7 @@ package com.patrick.developer.nybaiboliko.dao;
 import android.content.Context;
 
 import com.patrick.developer.nybaiboliko.configuration.DaoManager;
-import com.patrick.developer.nybaiboliko.models.Verset;
+import com.patrick.developer.nybaiboliko.models.entity.Verset;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.sql.SQLException;

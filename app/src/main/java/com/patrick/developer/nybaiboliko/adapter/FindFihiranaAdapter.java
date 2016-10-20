@@ -1,7 +1,6 @@
 package com.patrick.developer.nybaiboliko.adapter;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +54,7 @@ public class FindFihiranaAdapter extends BaseAdapter {
             view = infalInflater.inflate(R.layout.fihirana_item_find, null);
         }
 
-        String keyWord = ((GlobalClass)context.getApplicationContext()).getKeyWord();
+        String keyWord = ((GlobalVariable)context.getApplicationContext()).keyWord;
 
         Fihirana fihirana = fihiranas.get(i);
 

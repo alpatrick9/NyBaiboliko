@@ -1,19 +1,16 @@
 package com.patrick.developer.nybaiboliko.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.models.Verset;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
-import com.patrick.developer.nybaiboliko.tools.Tools;
+import com.patrick.developer.nybaiboliko.models.entity.Verset;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 
 import java.util.List;
 
@@ -54,7 +51,7 @@ public class FindVesetAdapter extends BaseAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.verset_item_find, null);
         }
-        String keyWord = ((GlobalClass)context.getApplicationContext()).getKeyWord();
+        String keyWord = ((GlobalVariable)context.getApplicationContext()).keyWord;
 
         Verset verset = versets.get(i);
 

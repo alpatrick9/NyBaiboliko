@@ -15,14 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.dao.HistoryFihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
-import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.historique.HistoryFragment;
-import com.patrick.developer.nybaiboliko.models.HistoryVerset;
-import com.patrick.developer.nybaiboliko.models.Verset;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryVerset;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
@@ -105,14 +102,14 @@ public class HistoryBibleAdapter extends BaseAdapter {
                 if(tagCourrant.equals("t"+i)){
                     HistoryVerset historyVerset = historyVersets.get(i);
 
-                    GlobalClass globalClass = (GlobalClass) context.getApplicationContext();
+                    GlobalVariable globalVariable = (GlobalVariable) context.getApplicationContext();
 
-                    globalClass.setBookIndex(historyVerset.getIndexBook());
-                    globalClass.setBookTitle(new JsonParser().getBook(context,globalClass.getBookIndex()));
+                    globalVariable.bookRef.bookIndex = historyVerset.getIndexBook();
+                    globalVariable.bookRef.bookTitle = new JsonParser().getBook(context, globalVariable.bookRef.bookIndex);
 
-                    globalClass.setChapitre(historyVerset.getChapitreNumber());
-                    globalClass.setversetFirst(historyVerset.getVersetNumberStart());
-                    globalClass.setversetLast(historyVerset.getVersetNumberLast());
+                    globalVariable.bookRef.chapitre = historyVerset.getChapitreNumber();
+                    globalVariable.bookRef.versetStart = historyVerset.getVersetNumberStart();
+                    globalVariable.bookRef.versetLast = historyVerset.getVersetNumberLast();
 
                     Fragment fragment = new BibleFragment();
 

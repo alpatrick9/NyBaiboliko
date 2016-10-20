@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.tools.TabAnimation;
+import com.patrick.developer.nybaiboliko.tools.animation.TabAnimation;
 import com.patrick.developer.nybaiboliko.tools.bible.BookManager;
 
 /**

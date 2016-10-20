@@ -1,6 +1,5 @@
 package com.patrick.developer.nybaiboliko.fragment.bible;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -15,9 +14,9 @@ import android.widget.RelativeLayout;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.VersetsAdapter;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
-import com.patrick.developer.nybaiboliko.models.Verset;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
-import com.patrick.developer.nybaiboliko.tools.Tools;
+import com.patrick.developer.nybaiboliko.models.entity.Verset;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
+import com.patrick.developer.nybaiboliko.tools.animation.AnimationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class BibleFragment extends Fragment {
 
     protected List<Verset> versets = new ArrayList<>();
 
-    protected GlobalClass globalClass;
+    protected GlobalVariable globalVariable;
 
     Toolbar toolbar;
 
@@ -48,15 +47,15 @@ public class BibleFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.baiboly_fragment, container, false);
 
-        globalClass = (GlobalClass) getActivity().getApplicationContext();
+        globalVariable = (GlobalVariable) getActivity().getApplicationContext();
 
-        globalClass.setAnimation(getActivity(), rootView);
+        AnimationManager.setAnimation(getActivity(), rootView);
 
         versetDao = new VersetDao(getActivity());
 
         setView();
 
-        versets = versetDao.findBy(globalClass.getBookTitle(),globalClass.getChapitre(),globalClass.getversetFirst(),globalClass.getversetLast());
+        versets = versetDao.findBy(globalVariable.bookRef.bookTitle, globalVariable.bookRef.chapitre, globalVariable.bookRef.versetStart, globalVariable.bookRef.versetLast);
 
         setData();
 
@@ -72,10 +71,10 @@ public class BibleFragment extends Fragment {
 
         toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
 
-        String titleToolbar = globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst()+"-"+globalClass.getversetLast();
+        String titleToolbar = globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart+"-"+ globalVariable.bookRef.versetLast;
 
-        if(globalClass.getversetLast()-globalClass.getversetFirst() == 0) {
-            titleToolbar = globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst();
+        if(globalVariable.bookRef.versetLast- globalVariable.bookRef.versetStart == 0) {
+            titleToolbar = globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart;
         }
 
         toolbar.setTitle(titleToolbar);
@@ -103,8 +102,8 @@ public class BibleFragment extends Fragment {
         allButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                versets = versetDao.findByBookAndChap(globalClass.getBookTitle(),globalClass.getChapitre());
-                toolbar.setTitle(globalClass.getBookTitle() + " "+ globalClass.getChapitre());
+                versets = versetDao.findByBookAndChap(globalVariable.bookRef.bookTitle, globalVariable.bookRef.chapitre);
+                toolbar.setTitle(globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre);
                 setData();
             }
         });

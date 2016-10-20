@@ -4,10 +4,10 @@ import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
-import com.patrick.developer.nybaiboliko.models.HistoryVerset;
-import com.patrick.developer.nybaiboliko.models.Verset;
+import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryFihirana;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryVerset;
+import com.patrick.developer.nybaiboliko.models.entity.Verset;
 
 import java.sql.SQLException;
 

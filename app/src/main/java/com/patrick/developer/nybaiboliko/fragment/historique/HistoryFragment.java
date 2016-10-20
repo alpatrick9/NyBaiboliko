@@ -1,29 +1,23 @@
 package com.patrick.developer.nybaiboliko.fragment.historique;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TabHost;
 
-import com.j256.ormlite.table.TableUtils;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.HistoryBibleAdapter;
 import com.patrick.developer.nybaiboliko.adapter.HistoryFihiranaAdapter;
 import com.patrick.developer.nybaiboliko.dao.HistoryFihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
-import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
-import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
-import com.patrick.developer.nybaiboliko.models.HistoryVerset;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
-import com.patrick.developer.nybaiboliko.tools.TabAnimation;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryFihirana;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryVerset;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
+import com.patrick.developer.nybaiboliko.tools.animation.TabAnimation;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -39,7 +33,7 @@ public class HistoryFragment extends Fragment {
 
     protected ListView resultSongView;
 
-    protected GlobalClass globalClass;
+    protected GlobalVariable globalVariable;
 
     TabHost tabHost = null;
 
@@ -57,9 +51,9 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.history, container, false);
 
-        globalClass = (GlobalClass) getActivity().getApplicationContext();
+        globalVariable = (GlobalVariable) getActivity().getApplicationContext();
 
-        //globalClass.setAnimation(getActivity(), rootView);
+        //globalVariable.setAnimation(getActivity(), rootView);
 
         Bundle bundle = getArguments();
         tabHostId = bundle.getInt("tabHostId");

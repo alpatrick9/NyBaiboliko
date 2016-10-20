@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
+import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
 
 import java.util.List;
 

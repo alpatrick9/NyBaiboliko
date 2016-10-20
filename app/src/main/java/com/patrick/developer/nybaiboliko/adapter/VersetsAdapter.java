@@ -10,8 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.models.Verset;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.models.entity.Verset;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class VersetsAdapter extends BaseAdapter {
 
         TextView itemViewNumber = (TextView)view.findViewById(R.id.versets_item_number);
         itemViewNumber.setText(versets.get(i).getVersetNumber().toString()+".");
-        itemViewNumber.setTextColor(new Tools(context).getColorBible()[((GlobalClass)context.getApplicationContext()).colorRef]);
+        itemViewNumber.setTextColor(new Tools(context).getColorBible()[((GlobalVariable)context.getApplicationContext()).colorRef]);
 
         TextView itemViewText = (TextView)view.findViewById(R.id.versets_item_text);
         itemViewText.setText(versets.get(i).getVersetText());

@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
 import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
-import com.patrick.developer.nybaiboliko.models.HistoryVerset;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryVerset;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
@@ -59,7 +59,7 @@ public class VersetManager {
 
     int windowProportion = 0;
 
-    GlobalClass globalClass;
+    GlobalVariable globalVariable;
 
     Toolbar toolbar;
 
@@ -74,20 +74,20 @@ public class VersetManager {
         this.tools = new Tools(context);
         this.jsonParse = new JsonParser();
         layoutVerset = (LinearLayout) rootView.findViewById(R.id.versets);
-        globalClass = (GlobalClass) context.getApplicationContext();
+        globalVariable = (GlobalVariable) context.getApplicationContext();
         toolbar = (Toolbar) ((Activity)context).findViewById(R.id.toolbar);
 
-        widthButton = globalClass.squareWidthMax;
-        heightButton = globalClass.squareWidthMax;
+        widthButton = globalVariable.squareWidthMax;
+        heightButton = globalVariable.squareWidthMax;
 
         this.windowProportion = tools.getSizeForSquare();
 
-        if(globalClass.squareWidthMax > windowProportion) {
+        if(globalVariable.squareWidthMax > windowProportion) {
             widthButton = windowProportion;
             heightButton = windowProportion;
         }
 
-        textButtonSize = globalClass.bibleBottonSize;
+        textButtonSize = globalVariable.bibleTextBottonSize;
     }
 
     public void creationButtonVerset() {
@@ -103,13 +103,13 @@ public class VersetManager {
         scroller.addView(baseLayout);
 
         TextView titleTextView = (TextView) ((Activity)context).getLayoutInflater().inflate(R.layout.indication_textwiew,null);;
-        titleTextView.setTextColor(tools.getColorBible()[globalClass.colorRef]);
+        titleTextView.setTextColor(tools.getColorBible()[globalVariable.colorRef]);
         switch (ref) {
             case 0:
                 titleTextView.setText("Andininy faha:");
                 break;
             case 1:
-                numerosVerse = globalClass.getversetFirst();
+                numerosVerse = globalVariable.bookRef.versetStart;
                 titleTextView.setText("Hatramin'ny faha:");
         }
 
@@ -155,13 +155,13 @@ public class VersetManager {
                 if(b.getTag() == index) {
                     switch (ref) {
                         case 0:
-                            globalClass.setversetFirst(index+1);
-                            toolbar.setTitle(globalClass.getBookTitle() + " "+ globalClass.getChapitre()+": "+globalClass.getversetFirst()+"-");
+                            globalVariable.bookRef.versetStart = index+1;
+                            toolbar.setTitle(globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart+"-");
                             new VersetManager(context,rootView,tools,tabHost,numberOfVerset,refColorBible,1).creationButtonVerset();
                             tabHost.setCurrentTab(2);
                             break;
                         case 1:
-                            globalClass.setversetLast(index+1);
+                            globalVariable.bookRef.versetLast = index+1;
                             ref = -1;
                             openBible();
                             break;
@@ -184,7 +184,7 @@ public class VersetManager {
         }
 
         HistoryVersetDao historyVersetDao = new HistoryVersetDao(context);
-        HistoryVerset historyVerset = new HistoryVerset(new Tools(context).formatTitleBookToView(globalClass.getBookTitle()),globalClass.getBookIndex(),globalClass.getChapitre(),globalClass.getversetFirst(),globalClass.getversetLast());
+        HistoryVerset historyVerset = new HistoryVerset(new Tools(context).formatTitleBookToView(globalVariable.bookRef.bookTitle), globalVariable.bookRef.bookIndex, globalVariable.bookRef.chapitre, globalVariable.bookRef.versetStart, globalVariable.bookRef.versetLast);
 
         try {
             historyVersetDao.create(historyVerset);

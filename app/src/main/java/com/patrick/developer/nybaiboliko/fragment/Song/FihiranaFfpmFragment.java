@@ -1,34 +1,28 @@
 package com.patrick.developer.nybaiboliko.fragment.Song;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.ParoleAdapter;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
-import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
+import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
+import com.patrick.developer.nybaiboliko.tools.animation.AnimationManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.patrick.developer.nybaiboliko.R.id.toolbar;
 
 /**
  * Created by developer on 10/7/16.
@@ -46,7 +40,7 @@ public class FihiranaFfpmFragment extends Fragment {
 
     protected List<String> paroles = new ArrayList<>();
 
-    protected GlobalClass globalClass;
+    protected GlobalVariable globalVariable;
 
     public FihiranaFfpmFragment() {
     }
@@ -57,9 +51,9 @@ public class FihiranaFfpmFragment extends Fragment {
 
         rootView = inflater.inflate(R.layout.fihirana_ffpm_fragment, container, false);
 
-        globalClass = (GlobalClass) getActivity().getApplicationContext();
+        globalVariable = (GlobalVariable) getActivity().getApplicationContext();
 
-        globalClass.setAnimation(getActivity(), rootView);
+        AnimationManager.setAnimation(getActivity(), rootView);
 
         Bundle bundle = this.getArguments();
         String id = bundle.getString("id");

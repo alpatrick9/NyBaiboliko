@@ -1,6 +1,5 @@
 package com.patrick.developer.nybaiboliko.fragment.find;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -17,27 +16,21 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
-import android.widget.Toast;
 
-import com.patrick.developer.nybaiboliko.MainActivity;
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.adapter.FihiranaAdapter;
 import com.patrick.developer.nybaiboliko.adapter.FindFihiranaAdapter;
 import com.patrick.developer.nybaiboliko.adapter.FindVesetAdapter;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.models.Verset;
-import com.patrick.developer.nybaiboliko.tools.GlobalClass;
-import com.patrick.developer.nybaiboliko.tools.TabAnimation;
+import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
+import com.patrick.developer.nybaiboliko.models.entity.Verset;
+import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
+import com.patrick.developer.nybaiboliko.tools.animation.AnimationManager;
+import com.patrick.developer.nybaiboliko.tools.animation.TabAnimation;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -56,7 +49,7 @@ public class FindFragment extends Fragment {
 
     protected ListView resultSongView;
 
-    protected GlobalClass globalClass;
+    protected GlobalVariable globalVariable;
 
     protected String keyWord;
 
@@ -71,9 +64,9 @@ public class FindFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.find, container, false);
 
-        globalClass = (GlobalClass) getActivity().getApplicationContext();
+        globalVariable = (GlobalVariable) getActivity().getApplicationContext();
 
-        globalClass.setAnimation(getActivity(), rootView);
+        AnimationManager.setAnimation(getActivity(), rootView);
 
         setTabHostView();
 
@@ -159,10 +152,6 @@ public class FindFragment extends Fragment {
 
                 keyWord = findEditText.getText().toString();
 
-                globalClass.setResultFindFihirana(new ArrayList<Fihirana>());
-                globalClass.setResultFindVerset(new ArrayList<Verset>());
-
-
                 final Handler handler = new Handler();
 
                 final Runnable initialize = new Runnable() {
@@ -177,13 +166,13 @@ public class FindFragment extends Fragment {
                     public void run() {
                         if (!keyWord.isEmpty()) {
 
-                            globalClass.setKeyWord(keyWord);
+                            globalVariable.keyWord = keyWord;
 
                             VersetDao versetDao = new VersetDao(getActivity());
-                            globalClass.setResultFindVerset(versetDao.findByKeyWord(keyWord));
+                            globalVariable.resultFindVerset = versetDao.findByKeyWord(keyWord);
 
                             FihiranaDao fihiranaDao = new FihiranaDao(getActivity());
-                            globalClass.setResultFindFihirana(fihiranaDao.findByKeyWord(keyWord));
+                            globalVariable.resultFindFihirana = fihiranaDao.findByKeyWord(keyWord);
                         }
                         myProgressDialog.dismiss();
                         /**********************************/
@@ -199,10 +188,10 @@ public class FindFragment extends Fragment {
     }
 
     public void initializeData() {
-        FindFihiranaAdapter fihiranaAdapter = new FindFihiranaAdapter(getActivity(), globalClass.getResultFindFihirana());
+        FindFihiranaAdapter fihiranaAdapter = new FindFihiranaAdapter(getActivity(), globalVariable.resultFindFihirana);
         resultSongView.setAdapter(fihiranaAdapter);
 
-        FindVesetAdapter vesetAdapter = new FindVesetAdapter(getActivity(), globalClass.getResultFindVerset());
+        FindVesetAdapter vesetAdapter = new FindVesetAdapter(getActivity(), globalVariable.resultFindVerset);
         resultBibleView.setAdapter(vesetAdapter);
     }
 
@@ -214,7 +203,7 @@ public class FindFragment extends Fragment {
                 Fragment fragment = new FihiranaFfpmFragment();
 
                 Bundle bundle = new Bundle();
-                bundle.putString("id",globalClass.getResultFindFihirana().get(i).getId());
+                bundle.putString("id", globalVariable.resultFindFihirana.get(i).getId());
 
                 fragment.setArguments(bundle);
                 changeFragment(fragment);
@@ -226,12 +215,12 @@ public class FindFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Verset verset = globalClass.getResultFindVerset().get(i);
+                Verset verset = globalVariable.resultFindVerset.get(i);
 
-                globalClass.setBookTitle(verset.getBook());
-                globalClass.setChapitre(verset.getChapitreNumber());
-                globalClass.setversetFirst(verset.getVersetNumber());
-                globalClass.setversetLast(verset.getVersetNumber());
+                globalVariable.bookRef.bookTitle = verset.getBook();
+                globalVariable.bookRef.chapitre = verset.getChapitreNumber();
+                globalVariable.bookRef.versetStart = verset.getVersetNumber();
+                globalVariable.bookRef.versetLast = verset.getVersetNumber();
 
                 Fragment fragment = new BibleFragment();
                 changeFragment(fragment);

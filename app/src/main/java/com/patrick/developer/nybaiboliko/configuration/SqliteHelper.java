@@ -8,10 +8,10 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.patrick.developer.nybaiboliko.dao.HistoryFihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
-import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
-import com.patrick.developer.nybaiboliko.models.HistoryVerset;
-import com.patrick.developer.nybaiboliko.models.Verset;
+import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryFihirana;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryVerset;
+import com.patrick.developer.nybaiboliko.models.entity.Verset;
 
 import java.sql.SQLException;
 

@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.patrick.developer.nybaiboliko.configuration.DaoManager;
-import com.patrick.developer.nybaiboliko.models.HistoryVerset;
-import com.patrick.developer.nybaiboliko.tools.Tools;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryVerset;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

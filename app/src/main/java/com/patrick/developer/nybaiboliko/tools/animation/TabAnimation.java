@@ -1,4 +1,4 @@
-package com.patrick.developer.nybaiboliko.tools;
+package com.patrick.developer.nybaiboliko.tools.animation;
 
 import android.provider.Settings;
 import android.view.MotionEvent;

@@ -18,7 +18,7 @@ import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.dao.HistoryFihiranaDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
 import com.patrick.developer.nybaiboliko.fragment.historique.HistoryFragment;
-import com.patrick.developer.nybaiboliko.models.HistoryFihirana;
+import com.patrick.developer.nybaiboliko.models.entity.HistoryFihirana;
 import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.sql.SQLException;

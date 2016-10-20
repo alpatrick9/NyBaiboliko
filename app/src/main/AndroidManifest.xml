@@ -3,7 +3,7 @@
     package="com.patrick.developer.nybaiboliko">
 
     <application
-        android:name=".tools.GlobalClass"
+        android:name=".tools.GlobalVariable"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

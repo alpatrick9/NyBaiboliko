@@ -3,7 +3,7 @@ package com.patrick.developer.nybaiboliko.dao;
 import android.content.Context;
 
 import com.patrick.developer.nybaiboliko.configuration.DaoManager;
-import com.patrick.developer.nybaiboliko.models.Fihirana;
+import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
