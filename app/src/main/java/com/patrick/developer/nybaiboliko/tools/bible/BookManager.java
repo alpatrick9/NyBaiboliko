@@ -42,8 +42,6 @@ public class BookManager {
 
     ArrayList<Button> buttonLivres = null;
 
-    protected ListView menuElementsList;
-
     int widthButton = 0;
     int heightButton = 0;
     int textButtonSize = 0;
@@ -62,9 +60,6 @@ public class BookManager {
         toolbar.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
         toolbar.setTitle(context.getResources().getString(R.string.bible_section));
         toolbar.setTitleTextColor(context.getResources().getColor(R.color.white));
-
-        menuElementsList = (ListView) ((Activity)context).findViewById(R.id.menu_elements);
-        menuElementsList.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
 
         widthButton = globalVariable.squareWidthMax;
         heightButton = globalVariable.squareWidthMax;
@@ -187,7 +182,6 @@ public class BookManager {
 
                     globalVariable.colorRef = refColor;
 
-                    menuElementsList.setBackgroundColor(tools.getColorBible()[refColor]);
                     tabHost.setCurrentTab(1);
                 }
             }

@@ -7,14 +7,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Testameta taloha"
-            android:id="@+id/aT"
-            android:layout_column="1"
-            style="@style/title_book"
-            android:layout_gravity="center_horizontal" />
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,14 +15,6 @@
             android:layout_marginTop="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Testameta vaovao"
-            android:id="@+id/nT"
-            android:layout_column="1"
-            style="@style/title_book"
-            android:layout_gravity="center_horizontal" />
 
         <TableLayout
             android:layout_width="wrap_content"

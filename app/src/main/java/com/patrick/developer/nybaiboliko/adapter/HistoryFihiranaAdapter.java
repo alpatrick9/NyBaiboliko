@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -62,7 +63,11 @@ public class HistoryFihiranaAdapter extends BaseAdapter {
             view = infalInflater.inflate(R.layout.story_items, null);
         }
 
+        ImageView imageView = (ImageView)view.findViewById(R.id.ic_story);
+        imageView.setBackground(context.getResources().getDrawable(R.mipmap.ic_song));
+
         TextView title = (TextView)view.findViewById(R.id.title_item);
+        title.setMaxWidth(new Tools(context).getWidthSreenSize() - 200);
         title.setText(Html.fromHtml(historyFihiranas.get(i).getTitle()));
         title.setTag("t"+i);
 

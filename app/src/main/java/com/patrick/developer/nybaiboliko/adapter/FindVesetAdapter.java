@@ -5,6 +5,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -64,6 +66,8 @@ public class FindVesetAdapter extends BaseAdapter {
         TextView itemViewText = (TextView)view.findViewById(R.id.text_find);
         itemViewText.setText(Html.fromHtml(verset.getVersetText().replaceAll(pattern,"<html><font color=\"red\">"+keyWord+"</font></html>")));
 
+        Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up_fast);
+        view.setAnimation(scaleUp);
         return view;
     }
 }

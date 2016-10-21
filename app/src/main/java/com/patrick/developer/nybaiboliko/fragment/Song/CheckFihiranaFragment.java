@@ -131,9 +131,6 @@ public class CheckFihiranaFragment extends Fragment {
 
         filtreEditText = (EditText)rootView.findViewById(R.id.fihirana_filtre);
 
-        ListView menuElementsList = (ListView) getActivity().findViewById(R.id.menu_elements);
-        menuElementsList.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
-
     }
 
     public void setToolbar() {

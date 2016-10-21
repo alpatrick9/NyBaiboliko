@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.patrick.developer.nybaiboliko.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/open_other"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/add_tab"
         app:showAsAction="never" />
 </menu>

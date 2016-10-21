@@ -4,13 +4,17 @@
     android:layout_height="match_parent">
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:id="@+id/fihirana_filtre"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:background="@drawable/rounded_edittext"
+        android:layout_margin="@dimen/fab_margin"
+        android:hint="Laharan'ny hira"
+        android:padding="10dp"
+        />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/song_item"
-        android:layout_below="@+id/fihirana_filtre"
-        android:divider="@android:color/transparent"/>
+        android:layout_below="@+id/fihirana_filtre"/>
 </RelativeLayout>

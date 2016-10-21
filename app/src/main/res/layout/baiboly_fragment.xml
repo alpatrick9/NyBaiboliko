@@ -7,12 +7,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add"
-            android:text="@string/add_tab"
-            android:layout_alignParentRight="true"/>
         <TabHost
             android:id="@+id/tabHost"
             android:layout_width="match_parent"
@@ -28,7 +22,8 @@
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></TabWidget>
+                    android:layout_height="wrap_content"
+                    ></TabWidget>
                 <!-- container of tabs -->
                 <FrameLayout
                     android:id="@android:id/tabcontent"

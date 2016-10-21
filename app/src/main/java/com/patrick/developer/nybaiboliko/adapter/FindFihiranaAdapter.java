@@ -5,6 +5,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -85,6 +87,9 @@ public class FindFihiranaAdapter extends BaseAdapter {
         }
 
         content.setText(Html.fromHtml(paroles));
+
+        Animation scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up_fast);
+        view.setAnimation(scaleUp);
         return view;
     }
 }

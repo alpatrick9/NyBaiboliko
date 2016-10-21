@@ -7,11 +7,14 @@ import android.app.ProgressDialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -26,6 +29,7 @@ import com.patrick.developer.nybaiboliko.configuration.SqliteHelper;
 import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
+import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.find.FindFragment;
 import com.patrick.developer.nybaiboliko.fragment.historique.HistoryFragment;
@@ -45,21 +49,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected VersetDao versetDao;
 
     protected FihiranaDao fihiranaDao;
 
     protected Toolbar toolbar;
-
-    protected DrawerLayout menuLayout;
-
-    protected ListView menuElementsList;
-
-    protected ActionBarDrawerToggle menuToggle;
-
-    protected ArrayList<String> menuListe = new ArrayList<String>();
 
     ProgressDialog myProgressDialog = null;
 
@@ -82,13 +78,11 @@ public class MainActivity extends Activity {
 
         setView();
 
-        setToolbar();
-
         versetDao = new VersetDao(this);
 
         fihiranaDao = new FihiranaDao(this);
 
-        creationSlideMenu();
+        setNavigation();
 
         getContentView();
 
@@ -101,118 +95,31 @@ public class MainActivity extends Activity {
 
     protected void setView() {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
-
-        menuLayout = (DrawerLayout)findViewById(R.id.menu_layout);
-
-        menuElementsList = (ListView)findViewById(R.id.menu_elements);
     }
 
-    protected void setToolbar() {
-    }
-
-    /**
-     * Methoe slide menu
-     */
-    protected void creationSlideMenu() {
-
-        /**
-         * Initialisation des liste du slide menu
-         */
-        menuListe.add(this.getResources().getString(R.string.story_title));
-        menuListe.add(this.getResources().getString(R.string.bible));
-        menuListe.add(this.getResources().getString(R.string.ffpm));
-        menuListe.add(this.getResources().getString(R.string.ff));
-        menuListe.add(this.getResources().getString(R.string.find));
-
-        /**
-         * Creation de l'entete du slide menu
-         */
-        View headerView = getLayoutInflater().inflate(R.layout.entente_slide_menu, menuElementsList, false);
-
-        menuElementsList.addHeaderView(headerView, null, false);
-
-        TextView copyRigthTextView = (TextView) getLayoutInflater().inflate(R.layout.footer_slide_menu,null);
-
-        copyRigthTextView.setText(Html.fromHtml(infoApp()));
-
-        menuElementsList.addFooterView(copyRigthTextView);
-
-        SlideMenuAdapter adapterMenu = new SlideMenuAdapter(menuListe, this);
-        menuElementsList.setAdapter(adapterMenu);
-
-        /**
-         * Mise en place du slide menu
-         */
-        menuToggle = new ActionBarDrawerToggle(this, menuLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-            /**
-             * action à la fermeture
-             * @param view
-             */
+    protected void setNavigation() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close) {
+            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                invalidateOptionsMenu();
             }
 
-            /**
-             * Action à l'ouverture
-             * @param drawerView
-             */
+            /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                //Fermer clavier virtuel
-                gestionClavier.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
-                invalidateOptionsMenu();
+                gestionClavier.hideSoftInputFromWindow(MainActivity.this.getCurrentFocus().getWindowToken(), 0);
             }
         };
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        menuLayout.addDrawerListener(menuToggle);
-        menuToggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        menuElementsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                menuLayout.closeDrawer(menuElementsList);
-                Fragment fragment = null;
-
-                resetVariable();
-
-                switch (position) {
-                    case 1:
-                        fragment = new HistoryFragment();
-
-                        Bundle bundleHistory = new Bundle();
-                        bundleHistory.putInt("tabHostId",0);
-
-                        fragment.setArguments(bundleHistory);
-                        break;
-                    case 2:
-                        fragment =new CheckVersetBibleFragment();
-                        break;
-                    case 3:
-                        fragment = new CheckFihiranaFragment();
-
-                        Bundle bundleFfpm = new Bundle();
-                        bundleFfpm.putString("type","ffpm");
-
-                        fragment.setArguments(bundleFfpm);
-                        break;
-                    case 4:
-                        fragment = new CheckFihiranaFragment();
-
-                        Bundle bundleFf = new Bundle();
-                        bundleFf.putString("type","ff");
-
-                        fragment.setArguments(bundleFf);
-                        break;
-                    case 5:
-                        fragment = new FindFragment();
-                        break;
-                }
-                replaceFragment(fragment);
-            }
-        });
+        TextView textView = (TextView)navigationView.getHeaderView(0).findViewById(R.id.copyright);
+        textView.setText(Html.fromHtml(infoApp()));
 
     }
 
@@ -311,7 +218,7 @@ public class MainActivity extends Activity {
     }
 
     public String infoApp() {
-        String copyright = "Alain Patrick Rajaonarison &copy; 2016";
+        String copyright = "&copy; 2016";
 
         try {
             PackageInfo info = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_META_DATA);
@@ -336,4 +243,49 @@ public class MainActivity extends Activity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        Fragment fragment = null;
+
+        toolbar.getMenu().clear();
+
+        resetVariable();
+
+        switch (item.getItemId()) {
+            case R.id.nav_bible:
+                fragment = new CheckVersetBibleFragment();
+                break;
+            case R.id.nav_ffpm:
+                fragment = new CheckFihiranaFragment();
+
+                Bundle bundleFfpm = new Bundle();
+                bundleFfpm.putString("type","ffpm");
+
+                fragment.setArguments(bundleFfpm);
+                break;
+            case R.id.nav_ff:
+                fragment = new CheckFihiranaFragment();
+
+                Bundle bundleFf = new Bundle();
+                bundleFf.putString("type","ff");
+
+                fragment.setArguments(bundleFf);
+                break;
+            case R.id.nav_story:
+                fragment = new HistoryFragment();
+
+                Bundle bundleHistory = new Bundle();
+                bundleHistory.putInt("tabHostId",0);
+
+                fragment.setArguments(bundleHistory);
+                break;
+            case R.id.nav_find:
+                fragment = new FindFragment();
+                break;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        replaceFragment(fragment);
+        return true;
+    }
 }

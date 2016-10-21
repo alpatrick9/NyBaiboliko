@@ -128,9 +128,6 @@ public class HistoryFragment extends Fragment {
 
         resultSongView = (ListView) rootView.findViewById(R.id.result_song_view);
 
-        ListView menuElementsList = (ListView) getActivity().findViewById(R.id.menu_elements);
-        menuElementsList.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
-
         Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.story_title);
         toolbar.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));

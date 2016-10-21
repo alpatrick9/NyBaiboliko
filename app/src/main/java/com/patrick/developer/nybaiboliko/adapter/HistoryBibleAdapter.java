@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -64,6 +65,9 @@ public class HistoryBibleAdapter extends BaseAdapter {
             view = infalInflater.inflate(R.layout.story_items, null);
         }
 
+        ImageView imageView = (ImageView)view.findViewById(R.id.ic_story);
+        imageView.setBackground(context.getResources().getDrawable(R.mipmap.ic_text));
+
         HistoryVerset verset = historyVersets.get(i);
 
         String title = new Tools(context).formatTitleBookToView(verset.getBook())+" "+verset.getChapitreNumber();
@@ -73,6 +77,8 @@ public class HistoryBibleAdapter extends BaseAdapter {
             title = title + ": " + verset.getVersetNumberStart() + "-"+verset.getVersetNumberLast();
         }
         TextView titleView = (TextView)view.findViewById(R.id.title_item);
+        titleView.setMaxWidth(new Tools(context).getWidthSreenSize() - 200);
+
         titleView.setText(Html.fromHtml(title));
         titleView.setTag("t"+i);
 

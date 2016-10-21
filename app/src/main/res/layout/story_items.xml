@@ -5,21 +5,28 @@
     android:layout_marginLeft="@dimen/fab_margin"
     android:layout_marginRight="@dimen/fab_margin"
     android:gravity="center">
-
+    <ImageView
+        android:layout_width="90px"
+        android:layout_height="90px"
+        android:id="@+id/ic_story"
+        android:background="@android:color/transparent"
+        android:layout_alignParentLeft="true"
+        />
     <TextView
         android:id="@+id/title_item"
         style="@style/default_text"
-        android:layout_width="500px"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_alignTop="@+id/delete_story"/>
+        android:layout_alignTop="@+id/delete_story"
+        android:layout_toRightOf="@+id/ic_story"/>
     <ImageButton
         android:layout_width="90px"
         android:layout_height="90px"
         android:id="@+id/delete_story"
-        android:src="@mipmap/ic_delete"
+        android:src="@android:drawable/ic_menu_delete"
         android:background="@android:color/transparent"
-        android:layout_toRightOf="@+id/title_item"
+        android:layout_alignParentRight="true"
         />
 
 </RelativeLayout>

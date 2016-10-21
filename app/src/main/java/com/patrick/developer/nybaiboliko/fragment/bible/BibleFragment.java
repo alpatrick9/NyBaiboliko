@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -62,8 +65,6 @@ public class BibleFragment extends Fragment {
 
     TabHost tabHost = null;
 
-    Button addButton = null;
-
     Integer currentTab;
 
     public BibleFragment() {
@@ -102,6 +103,8 @@ public class BibleFragment extends Fragment {
 
         setListener();
 
+        inflateMenuToolBar();
+
         return rootView;
     }
 
@@ -116,8 +119,6 @@ public class BibleFragment extends Fragment {
         versetsListView3 = (ListView) rootView.findViewById(R.id.versets_item_3);
 
         toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-
-        addButton = (Button)rootView.findViewById(R.id.add);
     }
 
     public void setTabHostView() {
@@ -224,15 +225,16 @@ public class BibleFragment extends Fragment {
 
         showAll();
 
-        setAddListner();
-
     }
 
     public void setBackButton() {
+
         FloatingActionButton backButton = (FloatingActionButton)rootView.findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                toolbar.getMenu().clear();
 
                 CheckVersetBibleFragment fragment = new CheckVersetBibleFragment();
 
@@ -250,6 +252,7 @@ public class BibleFragment extends Fragment {
     }
 
     public void showAll() {
+
         FloatingActionButton allButton = (FloatingActionButton)rootView.findViewById(R.id.all);
         allButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,24 +282,31 @@ public class BibleFragment extends Fragment {
         });
     }
 
-    private void setAddListner() {
-        addButton.setOnClickListener(new View.OnClickListener() {
+    private void inflateMenuToolBar() {
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View view) {
-                if(globalVariable.nbBook == 2) {
-                    Toast.makeText(getActivity(),"Telo ihany ny isan\'ny boky afaka sokafana",Toast.LENGTH_LONG).show();
-                } else {
-                    globalVariable.nbBook++;
-                    globalVariable.numTabBook = globalVariable.nbBook;
-                    CheckVersetBibleFragment fragment =new CheckVersetBibleFragment();
-                    if (fragment != null) {
-                        RelativeLayout maLayout = (RelativeLayout) getActivity().findViewById(R.id.contenaire);
-                        maLayout.removeAllViews();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.contenaire, fragment).commit();
-                    }
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.open_other:
+                        if(globalVariable.nbBook == 2) {
+                            Toast.makeText(getActivity(),"Telo ihany ny isan\'ny boky afaka sokafana",Toast.LENGTH_LONG).show();
+                        } else {
+                            globalVariable.nbBook++;
+                            globalVariable.numTabBook = globalVariable.nbBook;
+                            CheckVersetBibleFragment fragment =new CheckVersetBibleFragment();
+                            if (fragment != null) {
+                                RelativeLayout maLayout = (RelativeLayout) getActivity().findViewById(R.id.contenaire);
+                                maLayout.removeAllViews();
+                                FragmentManager fragmentManager = getFragmentManager();
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.contenaire, fragment).commit();
+                            }
+                        }
+                        break;
                 }
+                return false;
             }
         });
     }

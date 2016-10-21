@@ -15,9 +15,12 @@
             android:gravity="center">
             <EditText
                 android:layout_width="500px"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:id="@+id/key_word"
                 android:layout_alignBottom="@+id/find"
+                android:background="@drawable/custom_edit_text"
+                android:hint="Teny tadiavina"
+                android:padding="10dp"
                 />
             <ImageButton
                 android:layout_width="90px"
@@ -36,7 +39,8 @@
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp">
 
             <!-- tab N°1 -->
             <!-- Inclusion of the interface -->
