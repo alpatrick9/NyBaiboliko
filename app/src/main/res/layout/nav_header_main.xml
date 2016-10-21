@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/fab_margin"
         android:text="@string/app_name"
+        android:textSize="25dp"
         android:textColor="#000"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     <TextView

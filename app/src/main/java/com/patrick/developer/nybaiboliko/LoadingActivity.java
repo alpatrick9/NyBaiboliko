@@ -24,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
 import java.util.concurrent.Callable;
 
@@ -44,7 +43,7 @@ public class LoadingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading);
-        RelativeLayout view = (RelativeLayout)findViewById(R.id.loading);
+        RelativeLayout view = (RelativeLayout) findViewById(R.id.loading);
 
         Animation scaleUp = AnimationUtils.loadAnimation(this, R.anim.start_anim);
         view.setAnimation(scaleUp);
@@ -66,15 +65,15 @@ public class LoadingActivity extends Activity {
 
         sqliteHelper.createTableIfNotExist(this);
 
-            final Handler handler = new Handler();
+        final Handler handler = new Handler();
 
-            final Runnable run = new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(LoadingActivity.this,MainActivity.class));
-                    finish();
-                }
-            };
+        final Runnable run = new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+                finish();
+            }
+        };
 
         Thread thread = new Thread() {
             @Override
@@ -90,15 +89,15 @@ public class LoadingActivity extends Activity {
                 }
                 myProgressDialog.dismiss();
                 /**********************************/
-                handler.postDelayed(run,1500);
+                handler.postDelayed(run, 1500);
             }
         };
 
-        myProgressDialog = ProgressDialog.show(LoadingActivity.this,"", "Miandrasa kely azafady ...", true);
+        myProgressDialog = ProgressDialog.show(LoadingActivity.this, "", "Miandrasa kely azafady ...", true);
         thread.start();
     }
 
-    public void insertDataBase(SqliteHelper sqliteHelper) throws SQLException, IOException, JSONException{
+    public void insertDataBase(SqliteHelper sqliteHelper) throws SQLException, IOException, JSONException {
         TransactionManager.callInTransaction(sqliteHelper.getConnectionSource(), new Callable<Void>() {
             public Void call() throws Exception {
 
@@ -116,7 +115,7 @@ public class LoadingActivity extends Activity {
                     }
                 }
 
-                if(fihiranaDao.countRow() == 0) {
+                if (fihiranaDao.countRow() == 0) {
                     String json = "";
                     JSONArray array = null;
                     json = new JsonParser().getJsonFile(LoadingActivity.this, "fihirana");
@@ -124,7 +123,7 @@ public class LoadingActivity extends Activity {
                         array = new JSONArray(json);
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(i);
-                            Fihirana fihirana = new Fihirana(object.getString("id"),object.getString("title"),object.getString("content"));
+                            Fihirana fihirana = new Fihirana(object.getString("id"), object.getString("title"), object.getString("content"));
                             fihiranaDao.create(fihirana);
                         }
                     }
