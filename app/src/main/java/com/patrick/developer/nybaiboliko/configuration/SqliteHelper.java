@@ -21,7 +21,7 @@ import java.sql.SQLException;
 
 public class SqliteHelper extends OrmLiteSqliteOpenHelper {
     protected static final String DATABASE_NAME = "bible";
-    protected static final int DATABASE_VERSION = 6;
+    protected static final int DATABASE_VERSION = 8;
 
     public SqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
