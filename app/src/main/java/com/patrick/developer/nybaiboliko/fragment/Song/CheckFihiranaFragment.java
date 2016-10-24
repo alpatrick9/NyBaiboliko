@@ -111,6 +111,12 @@ public class CheckFihiranaFragment extends Fragment {
             case "ff":
                 songs = fihiranaDao.findAllTitleFF();
                 break;
+            case "ts":
+                songs = fihiranaDao.findAllTitleTS();
+                break;
+            case "an":
+                songs = fihiranaDao.findAllTitleAN();
+                break;
         }
     }
 
@@ -121,6 +127,12 @@ public class CheckFihiranaFragment extends Fragment {
                 break;
             case "ff":
                 songs = fihiranaDao.findAllTitleFF(filtre);
+                break;
+            case "ts":
+                songs = fihiranaDao.findAllTitleTS(filtre);
+                break;
+            case "an":
+                songs = fihiranaDao.findAllTitleAN(filtre);
                 break;
         }
     }
@@ -144,6 +156,12 @@ public class CheckFihiranaFragment extends Fragment {
                 break;
             case "ff":
                 toolbar.setTitle(getActivity().getResources().getString(R.string.ff_section));
+                break;
+            case "ts":
+                toolbar.setTitle(getActivity().getResources().getString(R.string.ts_section));
+                break;
+            case "an":
+                toolbar.setTitle(getActivity().getResources().getString(R.string.an_section));
                 break;
         }
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.white));

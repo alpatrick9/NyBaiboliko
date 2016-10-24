@@ -11,13 +11,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:gravity="center">
+            android:layout_margin="@dimen/fab_margin">
             <EditText
-                android:layout_width="500px"
+                android:layout_width="650px"
                 android:layout_height="?attr/actionBarSize"
                 android:id="@+id/key_word"
                 android:layout_alignBottom="@+id/find"
+                android:layout_alignParentLeft="true"
                 android:background="@drawable/custom_edit_text"
                 android:hint="Teny tadiavina"
                 android:padding="10dp"
@@ -28,7 +28,7 @@
                 android:id="@+id/find"
                 android:src="@mipmap/ic_find"
                 android:background="@android:color/transparent"
-                android:layout_toRightOf="@+id/key_word"/>
+                android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
         <TabWidget

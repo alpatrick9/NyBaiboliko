@@ -16,4 +16,9 @@
     <string name="add_tab">Vakiteny hafa</string>
     <string name="auteur">by Alain Patrick Rajaonarison</string>
     <string name="option">Safidy hafa</string>
+    <string name="ts">Tsanta</string>
+    <string name="an">Antema</string>
+    <string name="fihirana">Fihirana</string>
+    <string name="ts_section">Tsanta</string>
+    <string name="an_section">Antema</string>
 </resources>

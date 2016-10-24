@@ -120,9 +120,9 @@ public class FindFragment extends Fragment {
     public void setView() {
         findEditText = (EditText) rootView.findViewById(R.id.key_word);
         int widthScreen = new Tools(getActivity()).getWidthSreenSize();
-        if (590 > widthScreen) {
+        if (750 > widthScreen) {
             ViewGroup.LayoutParams layoutParams = findEditText.getLayoutParams();
-            layoutParams.width = widthScreen - 100;
+            layoutParams.width = widthScreen - 150;
             findEditText.setLayoutParams(layoutParams);
         }
 

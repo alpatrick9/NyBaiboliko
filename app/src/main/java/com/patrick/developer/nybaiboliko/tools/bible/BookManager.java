@@ -110,6 +110,7 @@ public class BookManager {
                 b.setLayoutParams(paramsButtonMargin);
                 b.setText(getAbreviationLivre(compteurLivre));
                 b.setTextSize(textButtonSize);
+                b.setAllCaps(false);
 
                 if ((i == 0 && j == 0) || (i == 2 && j == 5) || (i == 3 && j == 3) || (i == 6 && j == 4)) {
                     TableRow.LayoutParams paramCol = (TableRow.LayoutParams) b.getLayoutParams();
@@ -131,7 +132,7 @@ public class BookManager {
     public String getAbreviationLivre(int index) {
         String nomLivre = jsonParse.getBook(context, index);
         nomLivre = nomLivre.replace(" ", "");
-        return nomLivre.substring(0, 3).toUpperCase();
+        return nomLivre.substring(0, 3);
     }
 
     public void getTitleBook(int index) {

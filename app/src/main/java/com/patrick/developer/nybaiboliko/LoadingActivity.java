@@ -89,7 +89,7 @@ public class LoadingActivity extends Activity {
                 }
                 myProgressDialog.dismiss();
                 /**********************************/
-                handler.postDelayed(run, 1500);
+                handler.postDelayed(run, 1100);
             }
         };
 

@@ -76,6 +76,46 @@ public class FihiranaDao extends AbstractDao<Fihirana, String> {
         return fihiranas;
     }
 
+    public List<Fihirana> findAllTitleTS() {
+        List<Fihirana> fihiranas = new ArrayList<>();
+        try {
+            fihiranas = dao.queryBuilder().selectColumns("id","title").where().like("id","TS_%").query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fihiranas;
+    }
+
+    public List<Fihirana> findAllTitleTS(Integer filtre) {
+        List<Fihirana> fihiranas = new ArrayList<>();
+        try {
+            fihiranas = dao.queryBuilder().selectColumns("id","title").where().like("id","TS_"+filtre+"%").query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fihiranas;
+    }
+
+    public List<Fihirana> findAllTitleAN() {
+        List<Fihirana> fihiranas = new ArrayList<>();
+        try {
+            fihiranas = dao.queryBuilder().selectColumns("id","title").where().like("id","AN_%").query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fihiranas;
+    }
+
+    public List<Fihirana> findAllTitleAN(Integer filtre) {
+        List<Fihirana> fihiranas = new ArrayList<>();
+        try {
+            fihiranas = dao.queryBuilder().selectColumns("id","title").where().like("id","AN_"+filtre+"%").query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fihiranas;
+    }
+
     public List<Fihirana> findByKeyWord(String keyWord) {
         List<Fihirana> fihiranas = new ArrayList<>();
 

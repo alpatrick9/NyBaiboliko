@@ -6,14 +6,28 @@
             android:id="@+id/nav_bible"
             android:icon="@mipmap/ic_bible"
             android:title="@string/bible" />
-        <item
-            android:id="@+id/nav_ffpm"
-            android:icon="@mipmap/ic_ffpm"
-            android:title="@string/ffpm" />
-        <item
-            android:id="@+id/nav_ff"
-            android:icon="@mipmap/ic_ff"
-            android:title="@string/ff" />
+        <item android:title="@string/fihirana">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_ffpm"
+                        android:icon="@mipmap/ic_ffpm"
+                        android:title="@string/ffpm" />
+                    <item
+                        android:id="@+id/nav_ff"
+                        android:icon="@mipmap/ic_ff"
+                        android:title="@string/ff" />
+                    <item
+                        android:id="@+id/nav_ts"
+                        android:icon="@mipmap/ic_tsanta"
+                        android:title="@string/ts"/>
+                    <item
+                        android:id="@+id/nav_an"
+                        android:icon="@mipmap/ic_antema"
+                        android:title="@string/an"/>
+                </group>
+            </menu>
+        </item>
 
     </group>
     <item android:title="@string/option">

@@ -111,6 +111,12 @@ public class FihiranaFfpmFragment extends Fragment {
                 if(fihirana.getId().contains("FFPM")) {
                     bundle.putString("type","ffpm");
                 }
+                if(fihirana.getId().contains("TS")) {
+                    bundle.putString("type","ts");
+                }
+                if(fihirana.getId().contains("AN")) {
+                    bundle.putString("type","an");
+                }
 
                 fragment.setArguments(bundle);
 

@@ -177,6 +177,22 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
                 fragment.setArguments(bundleFf);
                 break;
+            case R.id.nav_ts:
+                fragment = new CheckFihiranaFragment();
+
+                Bundle bundleTs = new Bundle();
+                bundleTs.putString("type","ts");
+
+                fragment.setArguments(bundleTs);
+                break;
+            case R.id.nav_an:
+                fragment = new CheckFihiranaFragment();
+
+                Bundle bundleAn = new Bundle();
+                bundleAn.putString("type","an");
+
+                fragment.setArguments(bundleAn);
+                break;
             case R.id.nav_story:
                 fragment = new HistoryFragment();
 

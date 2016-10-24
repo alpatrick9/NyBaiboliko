@@ -110,14 +110,18 @@ public class ChapitreManager {
                 }
                 Button b = new Button(context);
                 r.addView(b);
+
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) b.getLayoutParams();
                 params.setMargins(1, 1, 1, 1);
                 params.width = widthButton;
                 params.height = heightButton;
                 b.setLayoutParams(params);
+
                 b.setText(String.valueOf(numerosChapitre));
                 b.setTextSize(textButtonSize);
+
                 b.setTag(numerosChapitre);
+
                 b.setOnClickListener(listenerChapitre);
                 buttonChapitres.add(b);
                 b.setTextColor(context.getResources().getColor(R.color.white));
