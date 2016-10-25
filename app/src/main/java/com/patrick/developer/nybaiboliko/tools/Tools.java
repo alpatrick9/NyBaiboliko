@@ -56,6 +56,7 @@ public class Tools {
             return title.substring(0,5);
         return title.substring(0, 3);
     }
+
     public Integer getSizeForSquare(){
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = ((Activity)context).getWindowManager();
@@ -63,6 +64,16 @@ public class Tools {
         int hauteur = metrics.heightPixels;
         int largeur = metrics.widthPixels;
         return (int)Math.ceil(largeur/(float)7)-5;
+    }
+
+    public Integer getSizeForSquareBible() {
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = ((Activity)context).getWindowManager();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        int hauteur = metrics.heightPixels;
+        int largeur = metrics.widthPixels;
+        return (int)Math.ceil(largeur/(float)6)-5;
     }
 
     public Integer getWidthSreenSize() {

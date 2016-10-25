@@ -64,7 +64,7 @@ public class BookManager {
         widthButton = globalVariable.squareWidthMax;
         heightButton = globalVariable.squareWidthMax;
 
-        this.windowProportion = tools.getSizeForSquare();
+        this.windowProportion = tools.getSizeForSquareBible();
 
         if(globalVariable.squareWidthMax > windowProportion) {
             widthButton = windowProportion;
@@ -87,10 +87,10 @@ public class BookManager {
 
         TableLayout tableNouveau = (TableLayout) rootView.findViewById(R.id.nouveauTestament);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 12; i++) {
             TableRow row = new TableRow(context);
             row.setGravity(Gravity.CENTER);
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 6; j++) {
                 if (isfusionCol) {
                     isfusionCol = false;
                     continue;
@@ -112,7 +112,13 @@ public class BookManager {
                 b.setTextSize(textButtonSize);
                 b.setAllCaps(false);
 
-                if ((i == 0 && j == 0) || (i == 2 && j == 5) || (i == 3 && j == 3) || (i == 6 && j == 4)) {
+                /**
+                 * i == 0 && j == 0 Gen
+                 * i == 2 && j == 5 Sal
+                 *
+                 */
+                if ((i == 0 && j == 0) || (i == 3 && j == 1) || (i == 6 && j == 4)
+                        || (i == 7 && j == 4) || (i == 8 && j == 0) || (i == 11 && j == 4)) {
                     TableRow.LayoutParams paramCol = (TableRow.LayoutParams) b.getLayoutParams();
                     paramCol.span = 2;
                     b.setLayoutParams(paramCol);
@@ -124,7 +130,7 @@ public class BookManager {
                 b.setOnClickListener(listenerLivres);
                 compteurLivre++;
             }
-            if (i < 6) tableAncien.addView(row);
+            if (i < 7) tableAncien.addView(row);
             else tableNouveau.addView(row);
         }
     }
