@@ -1,10 +1,17 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.patrick.developer.nybaiboliko.MainActivity">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/open_other"
-        android:orderInCategory="100"
-        android:title="@string/add_tab"
-        app:showAsAction="never" />
+        android:title="@string/add_tab"/>
+    <item android:title="@string/share">
+        <menu>
+            <item
+                android:id="@+id/share_fb"
+                android:icon="@mipmap/ic_fb"
+                android:title="@string/share_fb" />
+            <item
+                android:id="@+id/share_other"
+                android:icon="@mipmap/ic_email"
+                android:title="@string/share_other" />
+        </menu>
+    </item>
 </menu>

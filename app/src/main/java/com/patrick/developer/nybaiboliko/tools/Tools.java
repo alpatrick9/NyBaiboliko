@@ -1,7 +1,10 @@
 package com.patrick.developer.nybaiboliko.tools;
 
 import android.app.Activity;
+import android.app.usage.NetworkStats;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -85,5 +88,11 @@ public class Tools {
 
     public int[] getColorBible() {
         return colorBible;
+    }
+
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

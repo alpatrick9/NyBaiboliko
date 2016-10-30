@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Ny Baiboliko</string>
+
+    <string name="facebook_app_id">1817962621814062</string>
+
     <string name="action_settings">Settings</string>
     <string name="bible">Baiboly</string>
     <string name="ffpm">Fihirana ffpm</string>
@@ -21,4 +24,7 @@
     <string name="fihirana">Fihirana</string>
     <string name="ts_section">Tsanta</string>
     <string name="an_section">Antema</string>
+    <string name="share">Zaraina</string>
+    <string name="share_fb">Facebook</string>
+    <string name="share_other">Hafa</string>
 </resources>

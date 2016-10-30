@@ -2,10 +2,16 @@ package com.patrick.developer.nybaiboliko.fragment.bible;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +27,17 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.patrick.developer.nybaiboliko.MainActivity;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.adapter.FindVesetAdapter;
@@ -76,6 +93,8 @@ public class BibleFragment extends Fragment {
         rootView = inflater.inflate(R.layout.baiboly_fragment, container, false);
 
         globalVariable = (GlobalVariable) getActivity().getApplicationContext();
+
+
 
         AnimationManager.setAnimation(getActivity(), rootView);
 
@@ -180,7 +199,7 @@ public class BibleFragment extends Fragment {
     }
 
     private void setToolbarTitle() {
-        String titleToolbar = "";
+        /*String titleToolbar = "";
         switch (tabHost.getCurrentTab()) {
             case 0:
                 titleToolbar = globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart+"-"+ globalVariable.bookRef.versetLast;
@@ -203,9 +222,8 @@ public class BibleFragment extends Fragment {
                     titleToolbar = globalVariable.bookRef2.bookTitle + " "+ globalVariable.bookRef2.chapitre+": "+ globalVariable.bookRef2.versetStart;
                 }
                 break;
-        }
-
-        toolbar.setTitle(titleToolbar);
+        }*/
+        toolbar.setTitle(getTitle());
     }
 
     public void setData() {
@@ -305,9 +323,113 @@ public class BibleFragment extends Fragment {
                             }
                         }
                         break;
+                    case R.id.share_fb:
+                        if(new Tools(getActivity()).isConnected()) {
+                            FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+                            CallbackManager callbackManager = CallbackManager.Factory.create();
+
+                            ShareDialog shareDialog = new ShareDialog(getActivity());
+
+                            shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                                @Override
+                                public void onSuccess(Sharer.Result result) {
+
+                                }
+
+                                @Override
+                                public void onCancel() {
+
+                                }
+
+                                @Override
+                                public void onError(FacebookException error) {
+                                }
+                            });
+
+                            if(ShareDialog.canShow(ShareLinkContent.class)) {
+                                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                                        .setContentUrl(Uri.parse(getUrl()))
+                                        .setContentTitle(getTitle())
+                                        .setContentDescription(toStringVerset())
+                                        .build();
+                                shareDialog.show(linkContent);
+                            }
+                        } else {
+                            Toast.makeText(getActivity(),"Tsy mandeha ny internet-nao azafady!",Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.id.share_other:
+                        if(new Tools(getActivity()).isConnected()) {
+                            Intent shareIntent = new Intent();
+                            shareIntent.setAction(Intent.ACTION_SEND);
+                            shareIntent.setType("text/html");
+                            shareIntent.putExtra(Intent.EXTRA_EMAIL,"");
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Andala-tsoratra masina avy amin'ny Ny Baiboliko");
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml("<h2>"+getTitle()+"</h2> "+toStringVerset()));
+                            startActivity(Intent.createChooser(shareIntent, getTitle()));
+                        } else {
+                            Toast.makeText(getActivity(),"Tsy mandeha ny internet-nao azafady!",Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                 }
                 return false;
             }
         });
+    }
+
+    private String getUrl() {
+        String url = "http://www.smartbaiboly.org/online#"+getTitle();
+        return url;
+    }
+    private String getTitle() {
+        String titleToolbar = "";
+        switch (tabHost.getCurrentTab()) {
+            case 0:
+                titleToolbar = globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart+"-"+ globalVariable.bookRef.versetLast;
+
+                if(globalVariable.bookRef.versetLast- globalVariable.bookRef.versetStart == 0) {
+                    titleToolbar = globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart;
+                }
+                break;
+            case 1:
+                titleToolbar = globalVariable.bookRef1.bookTitle + " "+ globalVariable.bookRef1.chapitre+": "+ globalVariable.bookRef1.versetStart+"-"+ globalVariable.bookRef1.versetLast;
+
+                if(globalVariable.bookRef1.versetLast- globalVariable.bookRef1.versetStart == 0) {
+                    titleToolbar = globalVariable.bookRef1.bookTitle + " "+ globalVariable.bookRef1.chapitre+": "+ globalVariable.bookRef1.versetStart;
+                }
+                break;
+            case 2:
+                titleToolbar = globalVariable.bookRef2.bookTitle + " "+ globalVariable.bookRef2.chapitre+": "+ globalVariable.bookRef2.versetStart+"-"+ globalVariable.bookRef2.versetLast;
+
+                if(globalVariable.bookRef2.versetLast- globalVariable.bookRef2.versetStart == 0) {
+                    titleToolbar = globalVariable.bookRef2.bookTitle + " "+ globalVariable.bookRef2.chapitre+": "+ globalVariable.bookRef2.versetStart;
+                }
+                break;
+        }
+        return titleToolbar;
+    }
+
+    private String toStringVerset() {
+        String buffer = "";
+        switch (tabHost.getCurrentTab()) {
+            case 0:
+                buffer = toString(versets);
+                break;
+            case 1:
+                buffer = toString(versets2);
+                break;
+            case 2:
+                buffer = toString(versets3);
+                break;
+        }
+        return buffer;
+    }
+
+    private String toString(List<Verset> liste){
+        String result = "";
+        for (Verset v: liste) {
+            result = result + v.getVersetNumber() + ". "+ v.getVersetText()+" ";
+        }
+        return result;
     }
 }

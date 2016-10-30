@@ -16,6 +16,7 @@
         android:id="@+id/title_item"
         style="@style/default_text"
         android:layout_width="wrap_content"
+        android:minWidth="150dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_alignTop="@+id/delete_story"
