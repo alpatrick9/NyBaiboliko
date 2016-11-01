@@ -84,6 +84,8 @@ public class BibleFragment extends Fragment {
 
     Integer currentTab;
 
+    CallbackManager callbackManager;
+
     public BibleFragment() {
     }
 
@@ -94,7 +96,7 @@ public class BibleFragment extends Fragment {
 
         globalVariable = (GlobalVariable) getActivity().getApplicationContext();
 
-
+        callbackManager = CallbackManager.Factory.create();
 
         AnimationManager.setAnimation(getActivity(), rootView);
 
@@ -351,6 +353,7 @@ public class BibleFragment extends Fragment {
                                         .setContentUrl(Uri.parse(getUrl()))
                                         .setContentTitle(getTitle())
                                         .setContentDescription(toStringVerset())
+                                        .setImageUrl(Uri.parse("http://nybaiboliko.esy.es/web/images/nybaiboliko.png"))
                                         .build();
                                 shareDialog.show(linkContent);
                             }
@@ -378,8 +381,24 @@ public class BibleFragment extends Fragment {
     }
 
     private String getUrl() {
-        String url = "http://www.smartbaiboly.org/online#"+getTitle();
+        String url = "http://nybaiboliko.esy.es/web/"+getParamUrl();
         return url;
+    }
+
+    private String getParamUrl() {
+        String title = "";
+        switch (tabHost.getCurrentTab()) {
+            case 0:
+                title = globalVariable.bookRef.bookTitle + "/"+ globalVariable.bookRef.chapitre+"/"+ globalVariable.bookRef.versetStart+"/"+ globalVariable.bookRef.versetLast;
+                break;
+            case 1:
+                title = globalVariable.bookRef1.bookTitle + "/"+ globalVariable.bookRef1.chapitre+"/"+ globalVariable.bookRef1.versetStart+"/"+ globalVariable.bookRef1.versetLast;
+                break;
+            case 2:
+                title = globalVariable.bookRef2.bookTitle + "/"+ globalVariable.bookRef2.chapitre+"/"+ globalVariable.bookRef2.versetStart+"/"+ globalVariable.bookRef2.versetLast;
+                break;
+        }
+        return title;
     }
     private String getTitle() {
         String titleToolbar = "";
@@ -431,5 +450,11 @@ public class BibleFragment extends Fragment {
             result = result + v.getVersetNumber() + ". "+ v.getVersetText()+" ";
         }
         return result;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
