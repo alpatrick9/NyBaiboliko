@@ -3,7 +3,6 @@ package com.patrick.developer.nybaiboliko;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,37 +16,15 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.misc.TransactionManager;
-import com.patrick.developer.nybaiboliko.adapter.SlideMenuAdapter;
-import com.patrick.developer.nybaiboliko.configuration.SqliteHelper;
-import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
-import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
-import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.find.FindFragment;
 import com.patrick.developer.nybaiboliko.fragment.historique.HistoryFragment;
-import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
-import com.patrick.developer.nybaiboliko.models.entity.Verset;
 import com.patrick.developer.nybaiboliko.tools.DialogBox;
 import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
-import com.patrick.developer.nybaiboliko.tools.JsonParser;
-import com.patrick.developer.nybaiboliko.tools.Tools;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 public class MainActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener {
 

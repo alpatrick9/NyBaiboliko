@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.patrick.developer.nybaiboliko">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <application
         android:name=".tools.GlobalVariable"
         android:allowBackup="true"
@@ -14,8 +10,6 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <activity
             android:name=".LoadingActivity"
@@ -31,16 +25,6 @@
 
         <activity android:name=".MainActivity"></activity>
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-
     </application>
-
-    <provider android:authorities="com.facebook.app.FacebookContentProvider1817962621814062"
-        android:name="com.facebook.FacebookContentProvider"
-        android:exported="true"/>
 
 </manifest>

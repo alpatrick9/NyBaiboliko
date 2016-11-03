@@ -7,8 +7,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;

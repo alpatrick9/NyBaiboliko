@@ -17,7 +17,6 @@ import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
 import com.patrick.developer.nybaiboliko.models.entity.Verset;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;
-import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;

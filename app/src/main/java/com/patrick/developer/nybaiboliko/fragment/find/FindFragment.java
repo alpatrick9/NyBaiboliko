@@ -24,14 +24,11 @@ import com.patrick.developer.nybaiboliko.dao.FihiranaDao;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.fragment.Song.FihiranaFfpmFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
-import com.patrick.developer.nybaiboliko.models.entity.Fihirana;
 import com.patrick.developer.nybaiboliko.models.entity.Verset;
 import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
+import com.patrick.developer.nybaiboliko.tools.Tools;
 import com.patrick.developer.nybaiboliko.tools.animation.AnimationManager;
 import com.patrick.developer.nybaiboliko.tools.animation.TabAnimation;
-import com.patrick.developer.nybaiboliko.tools.Tools;
-
-import java.util.ArrayList;
 
 /**
  * Created by developer on 10/7/16.

@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.patrick.developer.nybaiboliko.R;
 import com.patrick.developer.nybaiboliko.dao.HistoryVersetDao;
 import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
-import com.patrick.developer.nybaiboliko.models.ebean.BookRef;
 import com.patrick.developer.nybaiboliko.models.entity.HistoryVerset;
 import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 import com.patrick.developer.nybaiboliko.tools.JsonParser;

@@ -2,50 +2,22 @@ package com.patrick.developer.nybaiboliko.fragment.bible;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareContent;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.model.SharePhoto;
-import com.facebook.share.model.SharePhotoContent;
-import com.facebook.share.widget.ShareButton;
-import com.facebook.share.widget.ShareDialog;
-import com.patrick.developer.nybaiboliko.MainActivity;
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.adapter.FindVesetAdapter;
 import com.patrick.developer.nybaiboliko.adapter.VersetsAdapter;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
-import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
-import com.patrick.developer.nybaiboliko.models.ebean.BookRef;
 import com.patrick.developer.nybaiboliko.models.entity.Verset;
 import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
 import com.patrick.developer.nybaiboliko.tools.Tools;
@@ -85,8 +57,6 @@ public class BibleFragment extends Fragment {
 
     Integer currentTab;
 
-    CallbackManager callbackManager;
-
     public BibleFragment() {
     }
 
@@ -96,11 +66,6 @@ public class BibleFragment extends Fragment {
         rootView = inflater.inflate(R.layout.baiboly_fragment, container, false);
 
         globalVariable = (GlobalVariable) getActivity().getApplicationContext();
-
-        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        AppEventsLogger.activateApp(getActivity());
-
-        callbackManager = CallbackManager.Factory.create();
 
         AnimationManager.setAnimation(getActivity(), rootView);
 
@@ -305,61 +270,10 @@ public class BibleFragment extends Fragment {
                             }
                         }
                         break;
-                    case R.id.share_fb:
-                        if(new Tools(getActivity()).isConnected()) {
-
-                            ShareDialog shareDialog = new ShareDialog(getActivity());
-
-                            shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-                                @Override
-                                public void onSuccess(Sharer.Result result) {
-                                }
-
-                                @Override
-                                public void onCancel() {
-
-                                }
-
-                                @Override
-                                public void onError(FacebookException error) {
-                                }
-                            });
-
-                            if(ShareDialog.canShow(ShareLinkContent.class)) {
-                                ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                                        .setContentUrl(Uri.parse(getUrl()))
-                                        .setContentTitle(getTitle())
-                                        .setContentDescription(toStringVerset())
-                                        .setImageUrl(Uri.parse("http://nybaiboliko.esy.es/web/images/nybaiboliko.png"))
-                                        .build();
-                                shareDialog.show(linkContent);
-                            }
-                        } else {
-                            Toast.makeText(getActivity(),"Tsy mandeha ny internet-nao azafady!",Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case R.id.share_other:
-                        if(new Tools(getActivity()).isConnected()) {
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.setType("text/html");
-                            shareIntent.putExtra(Intent.EXTRA_EMAIL,"");
-                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Andala-tsoratra masina avy amin'ny Ny Baiboliko");
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml("<h2>"+getTitle()+"</h2> "+toStringVerset()));
-                            startActivity(Intent.createChooser(shareIntent, getTitle()));
-                        } else {
-                            Toast.makeText(getActivity(),"Tsy mandeha ny internet-nao azafady!",Toast.LENGTH_SHORT).show();
-                        }
-                        break;
                 }
                 return false;
             }
         });
-    }
-
-    private String getUrl() {
-        String url = "http://nybaiboliko.esy.es/web/"+getParamUrl();
-        return url;
     }
 
     private String getParamUrl() {
@@ -427,11 +341,5 @@ public class BibleFragment extends Fragment {
             result = result + v.getVersetNumber() + ". "+ v.getVersetText()+" ";
         }
         return result;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
