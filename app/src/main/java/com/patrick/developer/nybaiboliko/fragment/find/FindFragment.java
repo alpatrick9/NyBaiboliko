@@ -166,10 +166,10 @@ public class FindFragment extends Fragment {
                             globalVariable.keyWord = keyWord;
 
                             VersetDao versetDao = new VersetDao(getActivity());
-                            globalVariable.resultFindVerset = versetDao.findByKeyWord(keyWord);
+                            globalVariable.resultFindVerset = versetDao.findByKeyWord(keyWord.replace("'","''"));
 
                             FihiranaDao fihiranaDao = new FihiranaDao(getActivity());
-                            globalVariable.resultFindFihirana = fihiranaDao.findByKeyWord(keyWord);
+                            globalVariable.resultFindFihirana = fihiranaDao.findByKeyWord(keyWord.replace("'","''"));
                         }
                         myProgressDialog.dismiss();
                         /**********************************/

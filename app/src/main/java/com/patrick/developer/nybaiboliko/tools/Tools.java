@@ -55,7 +55,7 @@ public class Tools {
     }
 
     public String formatTitleBookToView(String title) {
-        if(title.startsWith("1") || title.startsWith("2") || title.startsWith("3") )
+        if(title.startsWith("1") || title.startsWith("2") || title.startsWith("3") || title.startsWith("Mpi"))
             return title.substring(0,5);
         return title.substring(0, 3);
     }

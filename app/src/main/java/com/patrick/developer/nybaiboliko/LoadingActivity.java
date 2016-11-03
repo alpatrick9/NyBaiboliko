@@ -109,7 +109,7 @@ public class LoadingActivity extends Activity {
                         array = new JSONArray(json);
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(i);
-                            Verset verset = new Verset(new Tools(LoadingActivity.this).formatTitleBook(object.getString("livre")), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"), object.getString("note"));
+                            Verset verset = new Verset(object.getString("livre"), object.getInt("chapitre"), object.getInt("verset"), object.getString("text"), object.getString("note"));
                             versetDao.create(verset);
                         }
                     }

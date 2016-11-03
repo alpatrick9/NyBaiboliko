@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.patrick.developer.nybaiboliko.configuration.DaoManager;
 import com.patrick.developer.nybaiboliko.models.entity.Verset;
-import com.patrick.developer.nybaiboliko.tools.Tools;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class VersetDao extends AbstractDao<Verset,Long> {
     public List<Verset> findBy(String book, Integer chapitre, Integer versetFirst, Integer versetLast) {
         List<Verset> versets = new ArrayList<>();
         try {
-            versets = dao.queryBuilder().where().eq("book",new Tools(context).formatTitleBook(book)).and().eq("chapitre_number",chapitre)
+            versets = dao.queryBuilder().where().eq("book",book).and().eq("chapitre_number",chapitre)
             .and().between("verset_number",versetFirst,versetLast).query();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +52,7 @@ public class VersetDao extends AbstractDao<Verset,Long> {
     public List<Verset> findByBookAndChap(String book, Integer chapitre) {
         List<Verset> versets = new ArrayList<>();
         try {
-            versets = dao.queryBuilder().where().eq("book",new Tools(context).formatTitleBook(book)).and().eq("chapitre_number",chapitre).query();
+            versets = dao.queryBuilder().where().eq("book",book).and().eq("chapitre_number",chapitre).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

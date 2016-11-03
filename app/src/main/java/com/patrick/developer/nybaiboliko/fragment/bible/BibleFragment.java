@@ -31,6 +31,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareContent;
 import com.facebook.share.model.ShareLinkContent;
@@ -95,6 +96,9 @@ public class BibleFragment extends Fragment {
         rootView = inflater.inflate(R.layout.baiboly_fragment, container, false);
 
         globalVariable = (GlobalVariable) getActivity().getApplicationContext();
+
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        AppEventsLogger.activateApp(getActivity());
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -201,30 +205,6 @@ public class BibleFragment extends Fragment {
     }
 
     private void setToolbarTitle() {
-        /*String titleToolbar = "";
-        switch (tabHost.getCurrentTab()) {
-            case 0:
-                titleToolbar = globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart+"-"+ globalVariable.bookRef.versetLast;
-
-                if(globalVariable.bookRef.versetLast- globalVariable.bookRef.versetStart == 0) {
-                    titleToolbar = globalVariable.bookRef.bookTitle + " "+ globalVariable.bookRef.chapitre+": "+ globalVariable.bookRef.versetStart;
-                }
-                break;
-            case 1:
-                titleToolbar = globalVariable.bookRef1.bookTitle + " "+ globalVariable.bookRef1.chapitre+": "+ globalVariable.bookRef1.versetStart+"-"+ globalVariable.bookRef1.versetLast;
-
-                if(globalVariable.bookRef1.versetLast- globalVariable.bookRef1.versetStart == 0) {
-                    titleToolbar = globalVariable.bookRef1.bookTitle + " "+ globalVariable.bookRef1.chapitre+": "+ globalVariable.bookRef1.versetStart;
-                }
-                break;
-            case 2:
-                titleToolbar = globalVariable.bookRef2.bookTitle + " "+ globalVariable.bookRef2.chapitre+": "+ globalVariable.bookRef2.versetStart+"-"+ globalVariable.bookRef2.versetLast;
-
-                if(globalVariable.bookRef2.versetLast- globalVariable.bookRef2.versetStart == 0) {
-                    titleToolbar = globalVariable.bookRef2.bookTitle + " "+ globalVariable.bookRef2.chapitre+": "+ globalVariable.bookRef2.versetStart;
-                }
-                break;
-        }*/
         toolbar.setTitle(getTitle());
     }
 
@@ -327,15 +307,12 @@ public class BibleFragment extends Fragment {
                         break;
                     case R.id.share_fb:
                         if(new Tools(getActivity()).isConnected()) {
-                            FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-                            CallbackManager callbackManager = CallbackManager.Factory.create();
 
                             ShareDialog shareDialog = new ShareDialog(getActivity());
 
                             shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                                 @Override
                                 public void onSuccess(Sharer.Result result) {
-
                                 }
 
                                 @Override
