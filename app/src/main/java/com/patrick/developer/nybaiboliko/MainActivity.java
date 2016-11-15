@@ -15,6 +15,7 @@ import android.text.Html;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,6 +45,8 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
                 INPUT_METHOD_SERVICE);
 
         globalVariable = (GlobalVariable)getApplicationContext();
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         resetVariable();
 
@@ -186,5 +189,11 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         drawer.closeDrawer(GravityCompat.START);
         replaceFragment(fragment);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 }
