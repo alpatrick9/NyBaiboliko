@@ -67,6 +67,10 @@ public class BibleFragment extends Fragment {
 
         globalVariable = (GlobalVariable) getActivity().getApplicationContext();
 
+        if(globalVariable.nbBook == -1) {
+            globalVariable.nbBook = 0;
+        }
+
         AnimationManager.setAnimation(getActivity(), rootView);
 
         versetDao = new VersetDao(getActivity());
@@ -268,6 +272,18 @@ public class BibleFragment extends Fragment {
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.contenaire, fragment).commit();
                             }
+                        }
+                        break;
+                    case R.id.clear:
+                        globalVariable.nbBook = -1;
+                        globalVariable.numTabBook = 0;
+                        CheckVersetBibleFragment fragment =new CheckVersetBibleFragment();
+                        if (fragment != null) {
+                            RelativeLayout maLayout = (RelativeLayout) getActivity().findViewById(R.id.contenaire);
+                            maLayout.removeAllViews();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.contenaire, fragment).commit();
                         }
                         break;
                 }

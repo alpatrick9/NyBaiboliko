@@ -26,7 +26,7 @@ public class GlobalVariable extends Application {
 
     public Integer numTabBook = 0;
 
-    public Integer nbBook = 0;
+    public Integer nbBook = -1;
 
     /**
      * size max of button to choise holy bible

@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.patrick.developer.nybaiboliko.fragment.Song.CheckFihiranaFragment;
+import com.patrick.developer.nybaiboliko.fragment.bible.BibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.bible.CheckVersetBibleFragment;
 import com.patrick.developer.nybaiboliko.fragment.find.FindFragment;
 import com.patrick.developer.nybaiboliko.fragment.historique.HistoryFragment;
@@ -47,8 +48,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         globalVariable = (GlobalVariable)getApplicationContext();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        resetVariable();
 
         setView();
 
@@ -116,11 +115,6 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
         return copyright;
     }
 
-    private void resetVariable() {
-        globalVariable.nbBook = 0;
-        globalVariable.numTabBook = globalVariable.nbBook;
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -135,11 +129,14 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
         toolbar.getMenu().clear();
 
-        resetVariable();
-
         switch (item.getItemId()) {
             case R.id.nav_bible:
-                fragment = new CheckVersetBibleFragment();
+                if(globalVariable.nbBook != -1) {
+                    fragment = new BibleFragment();
+                }
+                else {
+                    fragment = new CheckVersetBibleFragment();
+                }
                 break;
             case R.id.nav_ffpm:
                 fragment = new CheckFihiranaFragment();
