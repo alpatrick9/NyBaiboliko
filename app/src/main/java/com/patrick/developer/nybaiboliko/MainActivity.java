@@ -89,6 +89,9 @@ public class MainActivity extends Activity implements NavigationView.OnNavigatio
 
     protected void getContentView() {
         Fragment fragment = new CheckVersetBibleFragment();
+        if(globalVariable.nbBook != -1) {
+            fragment = new BibleFragment();
+        }
         replaceFragment(fragment);
     }
 
