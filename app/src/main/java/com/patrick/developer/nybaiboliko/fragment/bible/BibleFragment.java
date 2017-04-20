@@ -6,20 +6,16 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.patrick.developer.nybaiboliko.R;
-import com.patrick.developer.nybaiboliko.adapter.VersetsAdapter;
 import com.patrick.developer.nybaiboliko.dao.VersetDao;
 import com.patrick.developer.nybaiboliko.models.entity.Verset;
 import com.patrick.developer.nybaiboliko.tools.GlobalVariable;
@@ -187,11 +183,9 @@ public class BibleFragment extends Fragment {
 
         versetsTextView2.setText(Html.fromHtml(toString(versets2)));
         versetsTextView2.setTextIsSelectable(true);
-        //versetsTextView2.setMovementMethod(new ScrollingMovementMethod());
 
         versetsTextView3.setText(Html.fromHtml(toString(versets3)));
         versetsTextView3.setTextIsSelectable(true);
-       //versetsTextView3.setMovementMethod(new ScrollingMovementMethod());
 
     }
 
@@ -330,7 +324,7 @@ public class BibleFragment extends Fragment {
     private String toString(List<Verset> liste){
         String result = "";
         int numberColor = new Tools(getActivity()).getColorBible()[((GlobalVariable)getActivity().getApplicationContext()).colorRef];
-        int noteColor = getActivity().getResources().getColor(R.color.noteColor,null);
+        int noteColor = getActivity().getResources().getColor(R.color.noteColor);
         for (Verset v: liste) {
             if(!v.getNote().isEmpty()) {
                 String br = v.getVersetNumber() == 1 ? "" : "<br/><br/>";
