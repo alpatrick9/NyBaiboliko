@@ -30,23 +30,27 @@
                     android:layout_height="match_parent">
 
                     <!-- tab N°1 -->
-                    <ListView
+                    <TextView
                         android:id="@+id/versets_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:divider="@android:color/transparent"/>
+                        android:padding="@dimen/text_paddind"
+                        style="@style/default_text"/>
                     <!-- tab N°2 -->
-                    <ListView
+                    <TextView
                         android:id="@+id/versets_item_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:divider="@android:color/transparent"/>
+                        android:padding="@dimen/text_paddind"
+                        style="@style/default_text"/>
+                        />
                     <!-- tab N°3 -->
-                    <ListView
+                    <TextView
                         android:id="@+id/versets_item_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:divider="@android:color/transparent"/>
+                        android:padding="@dimen/text_paddind"
+                        style="@style/default_text"/>
 
                 </FrameLayout>
             </LinearLayout>

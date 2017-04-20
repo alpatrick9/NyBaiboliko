@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFF</color>
+    <color name="noteColor">#9e9b9b</color>
 
     <array name="colorBible">
         <item >#f51e30</item>

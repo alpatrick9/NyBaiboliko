@@ -5,6 +5,9 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,11 +38,11 @@ public class BibleFragment extends Fragment {
 
     protected  View rootView;
 
-    protected ListView versetsListView;
+    protected TextView versetsTextView;
 
-    protected ListView versetsListView2;
+    protected TextView versetsTextView2;
 
-    protected ListView versetsListView3;
+    protected TextView versetsTextView3;
 
     protected VersetDao versetDao;
 
@@ -106,11 +109,11 @@ public class BibleFragment extends Fragment {
 
         tabHost = (TabHost)rootView.findViewById(R.id.tabHost);
 
-        versetsListView = (ListView) rootView.findViewById(R.id.versets_item);
+        versetsTextView = (TextView) rootView.findViewById(R.id.versets_item);
 
-        versetsListView2 = (ListView) rootView.findViewById(R.id.versets_item_2);
+        versetsTextView2 = (TextView) rootView.findViewById(R.id.versets_item_2);
 
-        versetsListView3 = (ListView) rootView.findViewById(R.id.versets_item_3);
+        versetsTextView3 = (TextView) rootView.findViewById(R.id.versets_item_3);
 
         toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
     }
@@ -178,14 +181,18 @@ public class BibleFragment extends Fragment {
     }
 
     public void setData() {
-        VersetsAdapter adapter = new VersetsAdapter(getActivity(),versets);
-        versetsListView.setAdapter(adapter);
+        versetsTextView.setText(Html.fromHtml(toString(versets)));
+        versetsTextView.setTextIsSelectable(true);
+        //versetsTextView.setMovementMethod(new ScrollingMovementMethod());
 
-        VersetsAdapter adapter2 = new VersetsAdapter(getActivity(), versets2);
-        versetsListView2.setAdapter(adapter2);
+        versetsTextView2.setText(Html.fromHtml(toString(versets2)));
+        versetsTextView2.setTextIsSelectable(true);
+        //versetsTextView2.setMovementMethod(new ScrollingMovementMethod());
 
-        VersetsAdapter adapter3 = new VersetsAdapter(getActivity(), versets3);
-        versetsListView3.setAdapter(adapter3);
+        versetsTextView3.setText(Html.fromHtml(toString(versets3)));
+        versetsTextView3.setTextIsSelectable(true);
+       //versetsTextView3.setMovementMethod(new ScrollingMovementMethod());
+
     }
 
     private void setListener() {
@@ -292,21 +299,6 @@ public class BibleFragment extends Fragment {
         });
     }
 
-    private String getParamUrl() {
-        String title = "";
-        switch (tabHost.getCurrentTab()) {
-            case 0:
-                title = globalVariable.bookRef.bookTitle + "/"+ globalVariable.bookRef.chapitre+"/"+ globalVariable.bookRef.versetStart+"/"+ globalVariable.bookRef.versetLast;
-                break;
-            case 1:
-                title = globalVariable.bookRef1.bookTitle + "/"+ globalVariable.bookRef1.chapitre+"/"+ globalVariable.bookRef1.versetStart+"/"+ globalVariable.bookRef1.versetLast;
-                break;
-            case 2:
-                title = globalVariable.bookRef2.bookTitle + "/"+ globalVariable.bookRef2.chapitre+"/"+ globalVariable.bookRef2.versetStart+"/"+ globalVariable.bookRef2.versetLast;
-                break;
-        }
-        return title;
-    }
     private String getTitle() {
         String titleToolbar = "";
         switch (tabHost.getCurrentTab()) {
@@ -335,26 +327,16 @@ public class BibleFragment extends Fragment {
         return titleToolbar;
     }
 
-    private String toStringVerset() {
-        String buffer = "";
-        switch (tabHost.getCurrentTab()) {
-            case 0:
-                buffer = toString(versets);
-                break;
-            case 1:
-                buffer = toString(versets2);
-                break;
-            case 2:
-                buffer = toString(versets3);
-                break;
-        }
-        return buffer;
-    }
-
     private String toString(List<Verset> liste){
         String result = "";
+        int numberColor = new Tools(getActivity()).getColorBible()[((GlobalVariable)getActivity().getApplicationContext()).colorRef];
+        int noteColor = getActivity().getResources().getColor(R.color.noteColor,null);
         for (Verset v: liste) {
-            result = result + v.getVersetNumber() + ". "+ v.getVersetText()+" ";
+            if(!v.getNote().isEmpty()) {
+                String br = v.getVersetNumber() == 1 ? "" : "<br/><br/>";
+                result += br + "<font color=\"" + noteColor+ "\"><i>" + v.getNote() +"</i></font><br/><br/>";
+            }
+            result = result + "<font color=\"" + numberColor + "\"><b>" + v.getVersetNumber() + ".</b></font> "+ v.getVersetText()+" ";
         }
         return result;
     }
