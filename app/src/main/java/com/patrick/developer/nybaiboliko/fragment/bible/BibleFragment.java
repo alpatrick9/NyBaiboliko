@@ -2,11 +2,18 @@ package com.patrick.developer.nybaiboliko.fragment.bible;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.style.CharacterStyle;
+import android.text.style.UnderlineSpan;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -179,14 +186,68 @@ public class BibleFragment extends Fragment {
     public void setData() {
         versetsTextView.setText(Html.fromHtml(toString(versets)));
         versetsTextView.setTextIsSelectable(true);
+        customSelectText(versetsTextView);
         //versetsTextView.setMovementMethod(new ScrollingMovementMethod());
 
         versetsTextView2.setText(Html.fromHtml(toString(versets2)));
         versetsTextView2.setTextIsSelectable(true);
+        customSelectText(versetsTextView2);
 
         versetsTextView3.setText(Html.fromHtml(toString(versets3)));
         versetsTextView3.setTextIsSelectable(true);
+        customSelectText(versetsTextView3);
 
+    }
+
+    private void customSelectText(final TextView textView) {
+        textView.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                menu.add(0,0,0,"Copy").setIcon(R.mipmap.ic_copy);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                //menu.removeItem(android.R.id.shareText);
+                menu.removeItem(android.R.id.copy);
+                menu.removeItem(android.R.id.selectAll);
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case 0:
+                        int min = 0;
+                        int max = textView.getText().length();
+                        if (textView.isFocused()) {
+                            final int selStart = textView.getSelectionStart();
+                            final int selEnd = textView.getSelectionEnd();
+
+                            min = Math.max(0, Math.min(selStart, selEnd));
+                            max = Math.max(0, Math.max(selStart, selEnd));
+                        }
+                        // Perform your definition lookup with the selected text
+                        final CharSequence selectedText = textView.getText().subSequence(min, max);
+
+                        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
+                        clipboardManager.setText(selectedText);
+                        Toast.makeText(getActivity(),"Voadika!",Toast.LENGTH_SHORT).show();
+                        // Finish and close the ActionMode
+                        actionMode.finish();
+                        return true;
+                    default:
+                        break;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode actionMode) {
+
+            }
+        });
     }
 
     private void setListener() {
@@ -330,7 +391,7 @@ public class BibleFragment extends Fragment {
                 String br = v.getVersetNumber() == 1 ? "" : "<br/><br/>";
                 result += br + "<font color=\"" + noteColor+ "\"><i>" + v.getNote() +"</i></font><br/><br/>";
             }
-            result = result + "<font color=\"" + numberColor + "\"><b>" + v.getVersetNumber() + ".</b></font> "+ v.getVersetText()+" ";
+            result += "<font color=\"" + numberColor + "\"><b>" + v.getVersetNumber() + ".</b></font> "+ v.getVersetText()+" ";
         }
         return result;
     }
