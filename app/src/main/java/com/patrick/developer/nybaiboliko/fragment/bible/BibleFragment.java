@@ -230,9 +230,22 @@ public class BibleFragment extends Fragment {
                         }
                         // Perform your definition lookup with the selected text
                         final CharSequence selectedText = textView.getText().subSequence(min, max);
+                        String textToCopy = "";
+                        switch (tabHost.getCurrentTab()) {
+                            case 0:
+                                textToCopy = globalVariable.bookRef.bookTitle +" "+globalVariable.bookRef.chapitre+": "+selectedText.toString();
+                                break;
+                            case 1:
+                                textToCopy = globalVariable.bookRef1.bookTitle +" "+globalVariable.bookRef1.chapitre+": "+selectedText.toString();
+                                break;
+                            case 2:
+                                textToCopy = globalVariable.bookRef2.bookTitle +" "+globalVariable.bookRef2.chapitre+": "+selectedText.toString();
+                                break;
+
+                        }
 
                         ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(getActivity().CLIPBOARD_SERVICE);
-                        clipboardManager.setText(selectedText);
+                        clipboardManager.setText(textToCopy);
                         Toast.makeText(getActivity(),"Voadika!",Toast.LENGTH_SHORT).show();
                         // Finish and close the ActionMode
                         actionMode.finish();
