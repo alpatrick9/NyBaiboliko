@@ -209,7 +209,7 @@ public class BibleFragment extends Fragment {
 
             @Override
             public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-                //menu.removeItem(android.R.id.shareText);
+                menu.removeItem(android.R.id.shareText);
                 menu.removeItem(android.R.id.copy);
                 menu.removeItem(android.R.id.selectAll);
                 return true;
